@@ -57,7 +57,7 @@
                 };
 
                 try {
-                    const response = await axios.post("http://localhost:8000/give_gift", data, {
+                    const response = await axios.post("/give_gift", data, {
                         withCredentials: true,
                     });
                     if (response.status === 200) {
