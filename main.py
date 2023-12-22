@@ -317,43 +317,41 @@ async def calculation(day: int,
                       year: int,
                       name: str,
                       gender: str):
-    # for char in name:
-    #     if not ('а' <= char <= 'я' or 'А' <= char <= 'Я' or char == " "):
-    #         await message.answer(name_error)
-    #         return None
-
-    # Расчёт числа судьбы
-    spiritual_numbers = str(day)
-    mental_numbers = str(month)
-    physical_numbers = str(year)
     numbers = [str(day), str(month), str(year)]
-    if len(spiritual_numbers) > 1:
-        while len(str(spiritual_numbers)) > 1:
-            if int(spiritual_numbers) == 11 or int(spiritual_numbers) == 22:
-                break
-            spiritual_numbers = int(str(spiritual_numbers)[0]) + int(str(spiritual_numbers)[1])
-    if len(mental_numbers) > 1:
-        while len(str(mental_numbers)) > 1:
-            if int(mental_numbers) == 11 or int(mental_numbers) == 22:
-                break
-            mental_numbers = int(mental_numbers[0]) + int(mental_numbers[1])
-    if len(physical_numbers) == 4:
-        while len(str(physical_numbers)) > 1:
+    # Расчёт числа судьбы
+    if len(numbers) >= 3:
+        spiritual_numbers = numbers[0]
+        mental_numbers = numbers[1]
+        physical_numbers = numbers[2]
+        if len(spiritual_numbers) > 1:
+            while len(str(spiritual_numbers)) > 1:
+                if int(spiritual_numbers) == 11 or int(spiritual_numbers) == 22:
+                    break
+                spiritual_numbers = int(spiritual_numbers[0]) + int(spiritual_numbers[1])
+        if len(mental_numbers) > 1:
+            while len(str(mental_numbers)) > 1:
+                if int(mental_numbers) == 11 or int(mental_numbers) == 22:
+                    break
+                mental_numbers = int(mental_numbers[0]) + int(mental_numbers[1])
+        if len(physical_numbers) == 4:
+            while len(str(physical_numbers)) > 1:
+                sum_of_numbers = 0
+                for number in str(physical_numbers):
+                    sum_of_numbers += int(number)
+                if int(physical_numbers) == 11 or int(physical_numbers) == 22:
+                    break
+                physical_numbers = sum_of_numbers
+        numbers_of_fate = int(spiritual_numbers) + int(mental_numbers) + int(physical_numbers)
+        while len(str(numbers_of_fate)) > 1:
             sum_of_numbers = 0
-            for number in str(physical_numbers):
-                sum_of_numbers += int(number)
-            if int(physical_numbers) == 11 or int(physical_numbers) == 22:
+            if int(numbers_of_fate) == 11 or int(numbers_of_fate) == 22:
                 break
-            physical_numbers = sum_of_numbers
-    numbers_of_fate = int(spiritual_numbers) + int(mental_numbers) + int(physical_numbers)
-    while len(str(numbers_of_fate)) > 1:
-        sum_of_numbers = 0
-        for number in str(numbers_of_fate):
-            sum_of_numbers += int(number)
-        numbers_of_fate = sum_of_numbers
-
+            for number in str(numbers_of_fate):
+                sum_of_numbers += int(number)
+            numbers_of_fate = sum_of_numbers
     # Расчёт числа имени
     total_sum = sum(alphabet[letter] for letter in name.upper() if letter.isalpha())
+    print(total_sum)
     if len(str(total_sum)) > 1:
         while len(str(total_sum)) > 1:
             sum_of_numbers = 0
@@ -398,7 +396,7 @@ async def calculation(day: int,
     result = ""
     result += f"Отлично, \nПол: {'Мужской' if gender == 'man' else 'Женский'}"
     result += f"\nИмя: {name}"
-    result += f"\nДата рождения: {'.'.join(numbers)}"
+    result += f"\nДата рождения: {numbers}"
     result += f"\nДополнительные числа: {' '.join(numbers_of_pythagoras)}"
     result += f"\nЧисло судьбы: {numbers_of_fate}"
     result += f"\nЧисло имени: {total_sum}"
