@@ -39,6 +39,16 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        function isTextInput(node) {
+            return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1;
+        }
+
+        document.addEventListener('touchstart', function (e) {
+            if (!isTextInput(e.target) && isTextInput(document.activeElement)) {
+                document.activeElement.blur();
+            }
+        }, false);
+
         const check_input = async () => {
             const element = document.querySelector(".neurology-6-input");
             if (element && element.value) {
