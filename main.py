@@ -272,7 +272,7 @@ if __name__ == "__main__":
     ssl_context.load_cert_chain(certfile, keyfile)
 
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000, ssl_version=ssl.PROTOCOL_TLS, ssl_keyfile=keyfile, ssl_certfile=certfile)
+    uvicorn.run(app, host="0.0.0.0", port=8000, ssl_version=ssl.PROTOCOL_TLS, ssl_keyfile=keyfile, ssl_certfile=certfile)
 
 
 @app.get("/", response_class=HTMLResponse)
