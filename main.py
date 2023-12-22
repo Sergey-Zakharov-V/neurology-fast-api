@@ -263,18 +263,6 @@ app = FastAPI(
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-
-if __name__ == "__main__":
-    certfile = "cert.pem"
-    keyfile = "key.pem"
-
-    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-    ssl_context.load_cert_chain(certfile, keyfile)
-
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, ssl_version=ssl.PROTOCOL_TLS, ssl_keyfile=keyfile, ssl_certfile=certfile)
-
-
 @app.get("/", response_class=HTMLResponse)
 async def home_page(request: Request):
     return templates.TemplateResponse("welcome_page.html", {"request": request, "title": "Neurology"})
@@ -427,3 +415,14 @@ async def calculation(day: int,
 async def name_page(request: Request, user_data: UserData):
     result = await calculation(day=user_data.day, month=user_data.month, year=user_data.year, name=user_data.name, gender=user_data.gender)
     return {"title": "Neurology", "name_title": name_title, "name_description": result}
+
+
+if __name__ == "__main__":
+    certfile = "cert.pem"
+    keyfile = "key.pem"
+
+    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    ssl_context.load_cert_chain(certfile, keyfile)
+
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, ssl_version=ssl.PROTOCOL_TLS, ssl_keyfile=keyfile, ssl_certfile=certfile)
