@@ -15,16 +15,16 @@
                  class="welcome-background-angles img-4">
         </div>
         <div class="welcome-logotype">
-            <img src="{{ url_for('static', path='images/Stars.png')}}" alt="logo" class="welcome-page-logo">
+            <img src="{{ url_for('static', path='images/Stars.svg')}}" alt="logo" class="welcome-page-logo">
             <h2 class="name-page-description">выберите пол</h2>
         </div>
         <div class="gender-container">
                 <button onclick=save_gender("man") class="gender-button">
-                    <img src="{{ url_for('static', path='images/man.png') }}" alt="Мужчина" class="gender-button-img">
+                    <img src="{{ url_for('static', path='images/man.svg') }}" alt="Мужчина" class="gender-button-img">
                     <p class="gender-button-text">Мужчина</p>
                 </button>
                 <button onclick=save_gender("woman") class="gender-button">
-                    <img src="{{ url_for('static', path='images/woman.png') }}" alt="Женщина" class="gender-button-img">
+                    <img src="{{ url_for('static', path='images/woman.svg') }}" alt="Женщина" class="gender-button-img">
                     <p class="gender-button-text">Женщина</p>
                 </button>
             </div>

@@ -1,0 +1,64 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container gift name-container">
+        <!--        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">-->
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/crown.svg')}}" alt="logo" class="welcome-page-logo crown">
+            <h2 class="name-page-description gift-title">Сделать <br/> подарок</h2>
+            <p class="info-page-description">В виде персонализированного разбора для вашего друга</p>
+        </div>
+        <div class="neurology-6-input-container">
+            <div class="text-field__icon text-field__icon_email">
+                <input type="text" class="neurology-6-input">
+            </div>
+            <p class="neurology-6-input-text">
+                Введите ник пользователя в Telegram
+            </p>
+
+        </div>
+        <div class="welcome-hero gift">
+            <a onclick=check_input(event) class="neurology-1-start-button">
+                <p class="neurology-1-start-button-text gift1">Оплатить</p>
+                <img src="{{ url_for('static', path='images/star_6.png') }}" alt="star"
+                     class="neurology-1-start-button-img">
+            </a>
+            <p class="welcome-footer-description"></p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const check_input = async () => {
+            const element = document.querySelector(".neurology-6-input");
+            if (element && element.value) {
+                const data = {
+                    username: element.value
+                };
+
+                try {
+                    const response = await axios.post("http://localhost:8000/give_gift", data, {
+                        withCredentials: true,
+                    });
+                    if (response.status === 200) {
+                        window.location.href = "/get_link_gift_page"
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+        }
+    </script>
+</section>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container gift-1 name-container">
+<!--        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">-->
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/icon_8.svg')}}" alt="logo" class="welcome-page-logo hand">
+            <h2 class="name-page-description gift-title">Подарок <br/> готов!</h2>
+        </div>
+        <div class="neurology-7-input-container">
+            <a class="neurology-7-input-and-text-container">
+                <p id="text-to-copy" type="text" class="neurology-7-input">https://t.me/neurologia_bot</p>
+                <p class="neurology-7-input-text">Ваша ссылка</p>
+            </a>
+        </div>
+        <div class="welcome-hero gift">
+            <button data-clipboard-target="#text-to-copy" class="neurology-1-start-button">
+                <p class="neurology-1-start-button-text gift-1">Скопировать</p>
+                <img src="{{ url_for('static', path='images/star_6.png') }}" alt="star"
+                     class="neurology-1-start-button-img">
+            </button>
+            <p class="welcome-footer-description"></p>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+    <script>
+        new ClipboardJS('button');
+    </script>
+</section>
+{% endblock %}

@@ -15,7 +15,7 @@
                  class="welcome-background-angles img-4">
         </div>
         <div onclick=hide_keyboard() class="welcome-logotype">
-            <img src="{{ url_for('static', path='images/Stars.png')}}" alt="logo" class="welcome-page-logo">
+            <img src="{{ url_for('static', path='images/Stars.svg')}}" alt="logo" class="welcome-page-logo">
             <h2 class="name-page-description">введите<br/>ваше имя</h2>
         </div>
         <div class="welcome-hero">
@@ -42,14 +42,16 @@
             event.preventDefault()
             const element = document.querySelector(".name-input");
             const user_name = element.value;
-            if (user_name) {
+            const nonRussianAndSpecialCharsRegExp = /[^а-яёa-zA-Z0-9\s]/;
+            const specialCharsRegExp = /[!@#$%^&*(),.?":{}|<>]/;
+            if (user_name && nonRussianAndSpecialCharsRegExp.test(user_name) && !specialCharsRegExp.test(user_name)) {
                 localStorage.setItem("name", user_name);
                 window.location.href = "/gender_page";
             } else {
                 const error_element = document.querySelector(".welcome-footer-description");
                 error_element.style.color = "red";
                 error_element.style.fontSize = "18px";
-                error_element.innerText = "Введите ваше имя";
+                error_element.innerText = "Введите ваше имя русскими буквами без спец. символов";
             }
         }
     </script>

@@ -15,7 +15,7 @@
                  class="welcome-background-angles img-4">
         </div>
         <div class="welcome-logotype">
-            <img src="{{ url_for('static', path='images/Moon.png')}}" alt="logo" class="welcome-page-logo">
+            <img src="{{ url_for('static', path='images/Moon.svg')}}" alt="logo" class="welcome-page-logo">
             <h2 class="name-page-description">ваш результат</h2>
             <div class="neurology-5-result-container">
                 <h3 class="neurology-5-result-title"></h3>
@@ -27,6 +27,9 @@
         <div class="welcome-hero">
             <a class="neurology-1-start-button name">
                 <p class="neurology-1-start-button-text name">Полная версия</p>
+            </a>
+            <a class="neurology-1-start-button name" id="gift-button" style="display: none">
+                <p class="neurology-1-start-button-text name" id="gift-text"></p>
             </a>
             <p class="welcome-footer-description"></p>
         </div>
@@ -48,11 +51,36 @@
             }
             axios.post("/get_demo_result", data).then((response) => {
                 // name_title_element = document.querySelector(".neurology-5-result-title");
-                name_description_element = document.querySelector(".neurology-5-result-1");
+                name_description_element = document.querySelector(".neurology-5-result-container");
                 // name_title_element.innerText = response.data.name_title;
-                name_description_element.innerText = response.data.name_description + response.data.name_description;
+                name_description_element.innerHTML = response.data.name_description;
             })
         }
+        const startApp = async () => {
+            try {
+                let tg = window.Telegram.WebApp;
+                const user_name = tg.initDataUnsafe.user.username;
+                if (user_name) {
+                    const user_data = {
+                        username: user_name,
+                    };
+                    const response = await axios.post("http://localhost:8000/get_user", user_data, {
+                        withCredentials: true,
+                    });
+                    console.log(response)
+                    if (response.status === 200) {
+                        const element = document.querySelector("#gift-button");
+                        const element2 = document.querySelector("#gift-text");
+                        element.style.display = "flex";
+                        element2.innerText = `У вас есть ${response.data.transcripts} разбор`
+                    }
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        startApp();
     </script>
 </section>
 {% endblock %}
