@@ -46,6 +46,7 @@ async def add_user(user: UserSchema):
     try:
         result = await UserService.find_one_or_none(user_id=user.user_id)
         if result is None:
+            user.transcripts = 0
             user.key = secrets.token_hex(4)
             await UserService.add(**user.model_dump())
             return status.HTTP_200_OK
