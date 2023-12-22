@@ -1,3 +1,5 @@
+import ssl
+
 from fastapi import FastAPI, Request, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
@@ -260,6 +262,17 @@ app = FastAPI(
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+if __name__ == "__main__":
+    certfile = "path/to/your/cert.pem"
+    keyfile = "path/to/your/key.pem"
+
+    ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    ssl_context.load_cert_chain(certfile, keyfile)
+
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000, ssl_version=ssl.PROTOCOL_TLS, ssl_keyfile=keyfile, ssl_certfile=certfile)
 
 
 @app.get("/", response_class=HTMLResponse)
