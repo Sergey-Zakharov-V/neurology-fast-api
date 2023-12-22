@@ -265,8 +265,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 if __name__ == "__main__":
-    certfile = "/etc/ssl/cert.pem"
-    keyfile = "/etc/ssl/key.pem"
+    certfile = "/cert.pem"
+    keyfile = "/key.pem"
 
     ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
     ssl_context.load_cert_chain(certfile, keyfile)
