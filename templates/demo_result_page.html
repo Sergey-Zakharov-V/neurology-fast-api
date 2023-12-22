@@ -64,11 +64,11 @@
                     const user_data = {
                         username: user_name,
                     };
-                    const response = await axios.post("http://localhost:8000/get_user", user_data, {
+                    const response = await axios.post("/get_user", user_data, {
                         withCredentials: true,
                     });
                     console.log(response)
-                    if (response.status === 200) {
+                    if (response.status === 200 && response.data) {
                         const element = document.querySelector("#gift-button");
                         const element2 = document.querySelector("#gift-text");
                         element.style.display = "flex";
