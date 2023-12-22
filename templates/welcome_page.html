@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container welcome-container">
+<!--        <div class="circle-and-moon-container">-->
+            <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">
+<!--            <img src="{{ url_for('static', path='images/back.png') }}" alt="" class="moon-background">-->
+<!--        </div>-->
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+            <img src="{{ url_for('static', path='images/starry-sky-5.png') }}" alt="" class="stars-background">
+        </div>
+        <div class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/Moon.png')}}" alt="logo" class="welcome-page-logo">
+            <h1 class="welcome-title">Нейрология</h1>
+            <h2 class="welcome-description">Ваш путь к нумерологическим тайнам</h2>
+        </div>
+        <div class="welcome-hero">
+            <a href="{{ url_for('name_page') }}" class="neurology-1-start-button">
+                <p class="neurology-1-start-button-text">Начать</p>
+                <img src="{{ url_for('static', path='images/star_6.png') }}" alt="star"
+                     class="neurology-1-start-button-img">
+            </a>
+            <p class="welcome-footer-description">
+                Исследуйте силу чисел и их влияние на Вашу судьбу, личность и будущее с помощью бесплатного
+                персонализированного отчета
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

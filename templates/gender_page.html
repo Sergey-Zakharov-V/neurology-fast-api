@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container name-container">
+        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img gender">
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/Stars.png')}}" alt="logo" class="welcome-page-logo">
+            <h2 class="name-page-description">выберите пол</h2>
+        </div>
+        <div class="gender-container">
+                <button onclick=save_gender("man") class="gender-button">
+                    <img src="{{ url_for('static', path='images/man.png') }}" alt="Мужчина" class="gender-button-img">
+                    <p class="gender-button-text">Мужчина</p>
+                </button>
+                <button onclick=save_gender("woman") class="gender-button">
+                    <img src="{{ url_for('static', path='images/woman.png') }}" alt="Женщина" class="gender-button-img">
+                    <p class="gender-button-text">Женщина</p>
+                </button>
+            </div>
+        <div class="welcome-hero">
+            <a onclick=check_input(event) class="neurology-1-start-button name">
+                <p class="neurology-1-start-button-text name">Далее</p>
+            </a>
+            <p class="welcome-footer-description"></p>
+        </div>
+    </div>
+    <script>
+        const save_gender = (gender) => {
+            localStorage.setItem("gender", gender)
+            window.location.href = "/date_of_birth_page"
+        }
+
+        const check_input = (event) => {
+            event.preventDefault()
+            const gender = localStorage.getItem("gender");
+            if (gender) {
+                window.location.href = "/date_of_birth_page"
+            } else {
+                const error_element = document.querySelector(".welcome-footer-description");
+                error_element.style.color = "red";
+                error_element.style.fontSize = "18px";
+                error_element.innerText = "Выберите ваш пол";
+            }
+        }
+    </script>
+</section>
+{% endblock %}

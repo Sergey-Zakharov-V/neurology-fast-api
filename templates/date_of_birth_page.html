@@ -1,0 +1,183 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container name-container">
+        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/Stars.png')}}" alt="logo" class="welcome-page-logo">
+            <h2 class="name-page-description">выберите дату <br/> рождения</h2>
+        </div>
+        <div class="welcome-hero">
+            <div class="date_of_birth_container">
+                <div class="neurology-4-info-date-day-container">
+                    <button onclick=open_day_button() class="neurology-4-info-date-day">
+                        <p class="neurology-4-info-date-day-text">--</p>
+                        <img src="{{ url_for('static', path='images/Vector.png') }}" alt=""
+                             class="neurology-4-info-date-img">
+                    </button>
+                    <div class="date-select-day">
+                        <ul class="date-select-day-list">
+                            {% for day in range(1, calendar.monthrange(1923, 1)[1] + 1) %}
+                            <li onclick=set_day(event) class="date-select-item">
+                                {{ day }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <p class="neurology-4-info-date-day-info">Дата</p>
+                </div>
+                <div class="neurology-4-info-date-month-container">
+                    <button onclick=open_month_button() class="neurology-4-info-date-month">
+                        <p class="neurology-4-info-date-month-text">--</p>
+                        <img src="{{ url_for('static', path='images/Vector.png') }}" alt=""
+                             class="neurology-4-info-date-img">
+                    </button>
+                    <div class="date-select-month">
+                        <ul class="date-select-month-list">
+                            {% for month in range(1, 13) %}
+                            <li onclick=set_month(event) class="date-select-item">
+                                {{ month }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <p class="neurology-4-info-date-day-info">Месяц</p>
+                </div>
+                <div class="neurology-4-info-date-year-container">
+                    <button onclick=open_year_button() class="neurology-4-info-date-year">
+                        <p class="neurology-4-info-date-year-text">----</p>
+                        <img src="{{ url_for('static', path='images/Vector.png') }}" alt=""
+                             class="neurology-4-info-date-img">
+                    </button>
+                    <div class="date-select-year">
+                        <ul class="date-select-year-list">
+                            {% for year in range(1923, 2025) %}
+                            <li onclick=set_year(event) class="date-select-item">
+                                {{ year }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <p class="neurology-4-info-date-day-info">Год</p>
+                </div>
+            </div>
+            <a onclick=check_input(event) class="neurology-1-start-button name">
+                <p class="neurology-1-start-button-text name">Далее</p>
+            </a>
+            <p class="welcome-footer-description"></p>
+        </div>
+    </div>
+    <script>
+        const regenerate_list = (numberOfDays) => {
+            let dayList = "";
+            for (let day = 1; day <= numberOfDays; day++) {
+                dayList += "<li onclick=set_day(event) class='date-select-item'>" + day + "</li>";
+            }
+
+            const daySelectList = document.querySelector(".date-select-day-list");
+            if (daySelectList) {
+                daySelectList.innerHTML = dayList;
+            }
+        }
+
+        const open_day_button = () => {
+            const element = document.querySelector(".date-select-day-list");
+            if (element.classList.contains("open")) {
+                element.classList.remove("open");
+            } else {
+                element.classList.add("open");
+            }
+        }
+
+        const open_month_button = () => {
+            const element = document.querySelector(".date-select-month-list");
+            if (element.classList.contains("open")) {
+                element.classList.remove("open");
+            } else {
+                element.classList.add("open");
+            }
+        }
+
+        const open_year_button = () => {
+            const element = document.querySelector(".date-select-year-list");
+            if (element.classList.contains("open")) {
+                element.classList.remove("open");
+            } else {
+                element.classList.add("open");
+            }
+        }
+
+        const set_year = (event) => {
+            const year = event.target.innerText;
+            const month = document.querySelector(".neurology-4-info-date-month-text").innerText;
+            if (year) {
+                const element = document.querySelector(".neurology-4-info-date-year-text");
+                element.innerText = year;
+                localStorage.setItem("year", year)
+                open_year_button()
+                const date = new Date(year, month - 1, 1);
+                const numberOfDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+                const day_element = document.querySelector(".neurology-4-info-date-day-text");
+                if (+day_element.innerText > 28) {
+                    day_element.innerText = 1;
+                }
+                regenerate_list(numberOfDays)
+            }
+        }
+
+        const set_month = (event) => {
+            const month = event.target.innerText;
+            const year = document.querySelector(".neurology-4-info-date-year-text").innerText;
+            if (month) {
+                const element = document.querySelector(".neurology-4-info-date-month-text");
+                element.innerText = month;
+                localStorage.setItem("month", month)
+                open_month_button()
+                const date = new Date(year, month - 1, 1)
+                const numberOfDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+                const day_element = document.querySelector(".neurology-4-info-date-day-text");
+                if (+day_element.innerText > 28) {
+                    day_element.innerText = 1;
+                }
+                regenerate_list(numberOfDays)
+            }
+        }
+
+        const set_day = (event) => {
+            const day = event.target.innerText;
+            if (day) {
+                const element = document.querySelector(".neurology-4-info-date-day-text");
+                element.innerText = day;
+                localStorage.setItem("day", day)
+                open_day_button()
+            }
+        }
+
+        const check_input = (event) => {
+            event.preventDefault()
+            const day = localStorage.getItem("day");
+            const month = localStorage.getItem("month");
+            const year = localStorage.getItem("year");
+            if (day && month && year) {
+                window.location.href = "/demo_result_page"
+            } else {
+                const error_element = document.querySelector(".welcome-footer-description");
+                error_element.style.color = "red";
+                error_element.style.fontSize = "18px";
+                error_element.innerText = "Дата указана неверно";
+            }
+        }
+    </script>
+</section>
+{% endblock %}

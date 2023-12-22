@@ -1,0 +1,57 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container name-container">
+        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div onclick=hide_keyboard() class="welcome-logotype">
+            <img src="{{ url_for('static', path='images/Stars.png')}}" alt="logo" class="welcome-page-logo">
+            <h2 class="name-page-description">введите<br/>ваше имя</h2>
+        </div>
+        <div class="welcome-hero">
+            <input type="text" placeholder="Введите Ваше имя" class="name-input" required>
+            <a onclick=save_name(event) class="neurology-1-start-button name">
+                <p class="neurology-1-start-button-text name">Далее</p>
+            </a>
+            <p class="welcome-footer-description"></p>
+        </div>
+    </div>
+    <script>
+
+        function isTextInput(node) {
+            return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1;
+        }
+
+        document.addEventListener('touchstart', function (e) {
+            if (!isTextInput(e.target) && isTextInput(document.activeElement)) {
+                document.activeElement.blur();
+            }
+        }, false);
+
+        const save_name = (event) => {
+            event.preventDefault()
+            const element = document.querySelector(".name-input");
+            const user_name = element.value;
+            if (user_name) {
+                localStorage.setItem("name", user_name);
+                window.location.href = "/gender_page";
+            } else {
+                const error_element = document.querySelector(".welcome-footer-description");
+                error_element.style.color = "red";
+                error_element.style.fontSize = "18px";
+                error_element.innerText = "Введите ваше имя";
+            }
+        }
+    </script>
+</section>
+{% endblock %}
