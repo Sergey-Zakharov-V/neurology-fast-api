@@ -69,10 +69,12 @@
                     });
                     console.log(response)
                     if (response.status === 200 && response.data) {
-                        const element = document.querySelector("#gift-button");
-                        const element2 = document.querySelector("#gift-text");
-                        element.style.display = "flex";
-                        element2.innerText = `У вас есть ${response.data.transcripts} разбор`
+                        if (response.data.transcripts > 0) {
+                            const element = document.querySelector("#gift-button");
+                            const element2 = document.querySelector("#gift-text");
+                            element.style.display = "flex";
+                            element2.innerText = `У вас есть ${response.data.transcripts} разбор`
+                        }
                     }
                 }
             } catch (error) {
