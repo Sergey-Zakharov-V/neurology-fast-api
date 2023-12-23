@@ -248,7 +248,7 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.07px;
-    margin-bottom: 56px;
+    margin-bottom: 46px;
 }
 
 .name-container {
@@ -686,6 +686,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-height: 800px) {
+    .welcome-logotype {
+        margin: 25px 0 25px 0;
+    }
+
     .welcome-logotype.gift {
         height: 50vh;
         margin: 0 0 20px 0;
@@ -695,8 +699,16 @@ h1, h2, h3, h4, h5, h6 {
         margin: 6px 0 6px 0;
     }
 
+    .welcome-footer-description {
+        margin-bottom: 30px;
+    }
+
     .name-page-description.gift-title {
         margin-bottom: 0;
+    }
+
+    .name-input {
+        margin-top: 54px;
     }
 
     .neurology-7-input-container {
