@@ -27,7 +27,7 @@
         </div>
         <div class="welcome-hero">
             <a class="neurology-1-start-button name">
-                <p class="neurology-1-start-button-text name">Полная версия</p>
+                <p onclick=get_full_information() class="neurology-1-start-button-text name">Полная версия</p>
             </a>
             <a class="neurology-1-start-button name" id="gift-button" style="display: none">
                 <p class="neurology-1-start-button-text name" id="gift-text"></p>
@@ -82,6 +82,24 @@
         };
 
         startApp();
+
+        const get_full_information = async () => {
+            if (day && month && year && name && gender) {
+                const user_name = tg.initDataUnsafe.user.username;
+                const data = {
+                    day: day,
+                    month: month,
+                    year: year,
+                    name: name,
+                    gender: gender,
+                    username: user_name,
+                }
+                await axios.post("/get_full_result", data).then((response) => {
+                    name_description_element = document.querySelector(".neurology-5-result-container");
+                    name_description_element.innerHTML = response.data.name_description;
+                })
+            }
+        }
     </script>
 </section>
 {% endblock %}

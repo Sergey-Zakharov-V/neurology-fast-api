@@ -553,10 +553,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .neurology-5-result-3 {
-    font-size: 14.5px;
-    font-family: Philosopher, sans-serif;
     color: #FFF;
-    margin-top: 0;
+    font-family: Philosopher, sans-serif;
+    font-size: 14.5px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .neurology-6-input-and-text-container {

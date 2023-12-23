@@ -43,14 +43,14 @@ class BaseService:
             await session.commit()
 
     @classmethod
-    async def update(cls, username: str):
+    async def update(cls, username: str, value: int):
         async with async_session_maker() as session:
             current_quantity = await session.execute(
                 select(cls.model.transcripts).where(cls.model.username == username)
             )
             transcripts_value = current_quantity.scalar()
             await session.execute(
-                update(cls.model).where(cls.model.username == username).values(transcripts=transcripts_value + 1)
+                update(cls.model).where(cls.model.username == username).values(transcripts=transcripts_value + value)
             )
             await session.commit()
 

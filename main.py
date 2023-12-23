@@ -63,7 +63,7 @@ async def give_gift(user: UserSchema):
             await UserService.add(**user.model_dump())
             return status.HTTP_200_OK
         else:
-            await UserService.update(username=user.username)
+            await UserService.update(username=user.username, value=1)
             return status.HTTP_200_OK
     except Exception as e:
         print(e)
@@ -111,20 +111,6 @@ async def give_gift_page(request: Request, response: Response):
 async def get_link_gift_page(request: Request, response: Response):
     return templates.TemplateResponse("get_link_gift_page.html",
                                       {"request": request, "title": "Neurology"})
-
-
-name_title = """Число имени 2
-"""
-
-name_description = """Сотрудничество и дружелюбие: Люди с числом имени 2 обычно обладают прекрасными навыками
-                    сотрудничества и
-                    дружелюбным характером. Они нередко являются медиаторами в конфликтных ситуациях и умеют находить
-                    общий
-                    язык с разными людьми. Для них важны гармоничные отношения и сотрудничество.
-                    
-                    Сопричастность: Число 2 символизирует чувство сопричастности и заботы о других. Личности с этим
-                    числом
-                    имени могут быть заботливыми и внимательными к потребностям окружающих."""
 
 
 async def calculation(day: int,
@@ -209,19 +195,8 @@ async def calculation(day: int,
             counts[int(num)] += 1
 
     result = ""
-    result += f"<p class='neurology-5-result-3'><b>Пол</b>: {'Мужской' if gender == 'man' else 'Женский'}</p>"
-    result += f"<p class='neurology-5-result-3'><b>Имя</b>: {name}</p>"
-    result += f"<p class='neurology-5-result-3'><b>Дата рождения</b>: {numbers}</p>"
-    result += f"<p class='neurology-5-result-3'><b>Дополнительные числа</b>: {' '.join(numbers_of_pythagoras)}</p>"
-    result += f"<p class='neurology-5-result-3'><b>Число судьбы</b>: {numbers_of_fate}</p>"
-    result += f"<p class='neurology-5-result-3'><b>Число имени</b>: {total_sum}</p>"
-    result += "<h3 class='neurology-5-result-title pif'>Матрица Пифагора</h3>"
-
-    for num, count in counts.items():
-        if count > 0:
-            result += f"<p class='neurology-5-result-3'><br/><b>• Ячейка {num} - {count} :</b></p>{pythagorean_cells[num]}"
-    result += f"{destiny_descriptions[numbers_of_fate]}"
     result += f"{numbers_of_the_name[total_sum]}"
+    result += f"{destiny_descriptions[numbers_of_fate]}"
     return result
 
 
@@ -229,4 +204,21 @@ async def calculation(day: int,
 async def name_page(request: Request, user_data: UserData):
     result = await calculation(day=user_data.day, month=user_data.month, year=user_data.year, name=user_data.name,
                                gender=user_data.gender)
-    return {"title": "Neurology", "name_title": name_title, "name_description": result}
+    return {"title": "Neurology", "name_description": result[:500] + "..."}
+
+
+@app.post("/get_full_result")
+async def name_page(request: Request, user: UserSchema, user_data: UserData):
+    try:
+        result = await UserService.find_one_or_none(username=user.username)
+        if result:
+            if result.transcripts > 0:
+                await UserService.update(username=user.username, value=-1)
+                result = await calculation(day=user_data.day, month=user_data.month, year=user_data.year,
+                                           name=user_data.name,
+                                           gender=user_data.gender)
+                return {"title": "Neurology", "name_description": result}
+            else:
+                return status.HTTP_409_CONFLICT
+    except Exception as e:
+        print(e)
