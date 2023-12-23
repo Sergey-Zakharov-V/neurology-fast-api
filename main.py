@@ -9,7 +9,7 @@ from starlette.staticfiles import StaticFiles
 import calendar
 from starlette.middleware.cors import CORSMiddleware
 
-from schemas.user_schema import UserData, UserSchema
+from schemas.user_schema import UserData, UserSchema, UserFullSchema
 from service.user_service import UserService
 from text_config import alphabet, destiny_descriptions, numbers_of_the_name, pythagorean_cells
 
@@ -208,15 +208,15 @@ async def name_page(request: Request, user_data: UserData):
 
 
 @app.post("/get_full_result")
-async def name_page(request: Request, user: UserSchema, user_data: UserData):
+async def name_page(request: Request, user: UserFullSchema):
     try:
         result = await UserService.find_one_or_none(username=user.username)
         if result:
             if result.transcripts > 0:
                 await UserService.update(username=user.username, value=-1)
-                result = await calculation(day=user_data.day, month=user_data.month, year=user_data.year,
-                                           name=user_data.name,
-                                           gender=user_data.gender)
+                result = await calculation(day=user.day, month=user.month, year=user.year,
+                                           name=user.name,
+                                           gender=user.gender)
                 return {"title": "Neurology", "name_description": result}
             else:
                 return status.HTTP_409_CONFLICT
