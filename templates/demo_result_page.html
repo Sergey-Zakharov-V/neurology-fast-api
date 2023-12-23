@@ -73,6 +73,9 @@
                             const element2 = document.querySelector("#gift-text");
                             element.style.display = "flex";
                             element2.innerText = `У вас есть ${response.data.transcripts} разбор`
+                        } else {
+                            const element = document.querySelector("#gift-button");
+                            element.style.display = "none";
                         }
                     }
                 }
@@ -95,7 +98,7 @@
                     username: user_name,
                 }
                 await axios.post("/get_full_result", data).then((response) => {
-                    if (response.status === 200) {
+                    if (response.status === 200 && response.data.name_description) {
                         name_description_element = document.querySelector(".neurology-5-result-container");
                         name_description_element.innerHTML = response.data.name_description;
                         startApp()
