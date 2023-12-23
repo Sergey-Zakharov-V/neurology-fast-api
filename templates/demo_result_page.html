@@ -95,8 +95,15 @@
                     username: user_name,
                 }
                 await axios.post("/get_full_result", data).then((response) => {
-                    name_description_element = document.querySelector(".neurology-5-result-container");
-                    name_description_element.innerHTML = response.data.name_description;
+                    if (response.status === 200) {
+                        name_description_element = document.querySelector(".neurology-5-result-container");
+                        name_description_element.innerHTML = response.data.name_description;
+                    } else {
+                        const error_element = document.querySelector(".welcome-footer-description");
+                        error_element.style.color = "red";
+                        error_element.style.fontSize = "18px";
+                        error_element.innerText = "У вас нет разборов";
+                    }
                 })
             }
         }
