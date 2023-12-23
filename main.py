@@ -128,12 +128,12 @@ async def calculation(day: int,
             while len(str(spiritual_numbers)) > 1:
                 if int(spiritual_numbers) == 11 or int(spiritual_numbers) == 22:
                     break
-                spiritual_numbers = int(spiritual_numbers[0]) + int(spiritual_numbers[1])
+                spiritual_numbers = int(str(spiritual_numbers)[0]) + int(str(spiritual_numbers)[1])
         if len(mental_numbers) > 1:
             while len(str(mental_numbers)) > 1:
                 if int(mental_numbers) == 11 or int(mental_numbers) == 22:
                     break
-                mental_numbers = int(mental_numbers[0]) + int(mental_numbers[1])
+                mental_numbers = int(str(mental_numbers)[0]) + int(str(mental_numbers)[1])
         if len(physical_numbers) == 4:
             while len(str(physical_numbers)) > 1:
                 sum_of_numbers = 0
