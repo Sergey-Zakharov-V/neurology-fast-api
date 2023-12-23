@@ -42,9 +42,9 @@
             event.preventDefault()
             const element = document.querySelector(".name-input");
             const user_name = element.value;
-            const nonRussianAndSpecialCharsRegExp = /[^а-яёa-zA-Z0-9\s]/;
+            const russianLettersRegExp = /^[а-яёА-ЯЁ]+$/;
             const specialCharsRegExp = /[!@#$%^&*(),.?":{}|<>]/;
-            if (user_name && nonRussianAndSpecialCharsRegExp.test(user_name) && !specialCharsRegExp.test(user_name)) {
+            if (user_name && russianLettersRegExp.test(user_name) && !specialCharsRegExp.test(user_name)) {
                 localStorage.setItem("name", user_name);
                 window.location.href = "/gender_page";
             } else {
