@@ -25,15 +25,7 @@
                 <p class="neurology-5-result-2"></p>
             </div>
         </div>
-        <div class="welcome-hero">
-            <a class="neurology-1-start-button name">
-                <p onclick=get_full_information() class="neurology-1-start-button-text name">Полная версия</p>
-            </a>
-            <a class="neurology-1-start-button name" id="gift-button" style="display: none">
-                <p class="neurology-1-start-button-text name" id="gift-text"></p>
-            </a>
-            <p class="welcome-footer-description"></p>
-        </div>
+        <div class="welcome-hero"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script async>
@@ -69,13 +61,31 @@
                     console.log(response)
                     if (response.status === 200 && response.data) {
                         if (response.data.transcripts > 0) {
-                            const element = document.querySelector("#gift-button");
-                            const element2 = document.querySelector("#gift-text");
-                            element.style.display = "flex";
-                            element2.innerText = `У вас есть ${response.data.transcripts} разбор`
+                            let transcripts_name = ''
+                            if (response.data.transcripts === 1) {
+                                transcripts_name = 'разбор';
+                            } else if (response.data.transcripts % 10 === 1 && response.data.transcripts % 100 !== 11) {
+                                transcripts_name = 'разбор';
+                            } else if (response.data.transcripts % 10 >= 2 && response.data.transcripts % 10 <= 4 && (response.data.transcripts % 100 < 10 || response.data.transcripts % 100 >= 20)) {
+                                transcripts_name = 'разбора';
+                            } else {
+                                transcripts_name = 'разборов';
+                            }
+                            const element = document.querySelector(".welcome-hero");
+                            element.innerHTML =
+                                `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
+                                '<a class="neurology-1-start-button name"><p onclick=get_full_information() class="neurology-1-start-button-text name">Посмотреть полную версию</p></a>' +
+                                '<a class="neurology-1-start-button name" id="gift-button" style="display: none"><p class="neurology-1-start-button-text name" id="gift-text"></p></a>' +
+                                '<p class="welcome-footer-description"></p>'
                         } else {
-                            const element = document.querySelector("#gift-button");
-                            element.style.display = "none";
+                            const element = document.querySelector(".welcome-hero");
+                            element.innerHTML =
+                                '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
+                                '<a class="neurology-1-start-button name">' +
+                                '<p onclick="get_full_information()" class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
+                                '</a>' +
+                                '<p class="welcome-footer-description"></p>';
+
                         }
                     }
                 }

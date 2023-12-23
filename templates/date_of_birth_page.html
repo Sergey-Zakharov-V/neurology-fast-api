@@ -81,12 +81,12 @@
     <script>
         const regenerate_list = (numberOfDays) => {
             let dayList = "";
+            const daySelectList = document.querySelector(".date-select-day-list");
             if (isNaN(numberOfDays)){
                 for (let day = 1; day <= 31; day++) {
                     dayList += "<li onclick=set_day(event) class='date-select-item'>" + day + "</li>";
                 }
 
-                const daySelectList = document.querySelector(".date-select-day-list");
                 if (daySelectList) {
                     daySelectList.innerHTML = dayList;
                 }
@@ -140,8 +140,8 @@
                 const date = new Date(year, month - 1, 1);
                 const numberOfDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
                 const day_element = document.querySelector(".neurology-4-info-date-day-text");
-                if (+day_element.innerText > 28) {
-                    day_element.innerText = 1;
+                if (+day_element.innerText > numberOfDays) {
+                    day_element.innerText = numberOfDays;
                 }
                 regenerate_list(numberOfDays)
             }
@@ -158,8 +158,8 @@
                 const date = new Date(year, month - 1, 1)
                 const numberOfDays = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
                 const day_element = document.querySelector(".neurology-4-info-date-day-text");
-                if (+day_element.innerText > 28) {
-                    day_element.innerText = 1;
+                if (+day_element.innerText > numberOfDays) {
+                    day_element.innerText = numberOfDays;
                 }
                 regenerate_list(numberOfDays)
             }
