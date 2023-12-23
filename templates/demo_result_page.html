@@ -3,7 +3,7 @@
 {{ super() }}
 <section class="welcome-section">
     <div class="container name-container">
-        <img src="{{ url_for('static', path='images/circle_moon.png') }}" alt="" class="circle-moon-img">
+        <img src="{{ url_for('static', path='images/f2.png') }}" alt="" class="circle-moon-img">
         <div class="welcome-background-angles-img">
             <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
                  class="welcome-background-angles img-2">
@@ -50,9 +50,7 @@
                 gender: gender,
             }
             axios.post("/get_demo_result", data).then((response) => {
-                // name_title_element = document.querySelector(".neurology-5-result-title");
                 name_description_element = document.querySelector(".neurology-5-result-container");
-                // name_title_element.innerText = response.data.name_title;
                 name_description_element.innerHTML = response.data.name_description;
             })
         }
