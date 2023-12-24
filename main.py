@@ -255,7 +255,6 @@ async def buy_products(payment_data: PaymentSchema):
     payment = json.loads(payment)
     await UserService.update_key(payment_data.username, str(payment["id"]))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
-    bot_token = "6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc"
     endpoint = "https://api.telegram.org/bot5614413708:AAHo48dECPm82y04SiXWOEITJJ_juCb7ue0/createinvoicelink"
     data = {
         "chat_id": 1509045389,
@@ -270,7 +269,7 @@ async def buy_products(payment_data: PaymentSchema):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.post(endpoint, json=data) as response:
-                print(response)
+                print(response.result)
     except Exception as e:
         print(e)
     return {"url": payment["confirmation"]["confirmation_url"], "data": data}
