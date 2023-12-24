@@ -1,17 +1,22 @@
-import secrets
-from typing import Optional
-
-from fastapi import FastAPI, Request, Response, status, Depends
-from fastapi.params import Body
-from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
-from starlette.staticfiles import StaticFiles
 import calendar
-from starlette.middleware.cors import CORSMiddleware
+import json
+import secrets
+import uuid
 
-from schemas.user_schema import UserData, UserSchema, UserFullSchema
-from service.user_service import UserService
-from text_config import alphabet, destiny_descriptions, numbers_of_the_name, pythagorean_cells
+from config import YOOKASSA_ACCOUNT_ID, YOOKASSA_SECRETKEY
+from fastapi import FastAPI, Request, Response, status
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from starlette.middleware.cors import CORSMiddleware
+from starlette.staticfiles import StaticFiles
+
+from schemas.user_schema import UserData, UserSchema, UserFullSchema, PaymentSchema
+from service.user_service import UserService, PaymentService
+from text_config import alphabet, destiny_descriptions, numbers_of_the_name
+from yookassa import Configuration, Payment
+
+Configuration.account_id = YOOKASSA_ACCOUNT_ID
+Configuration.secret_key = YOOKASSA_SECRETKEY
 
 templates = Jinja2Templates(directory="templates")
 
@@ -222,3 +227,40 @@ async def name_page(request: Request, user: UserFullSchema):
                 return status.HTTP_409_CONFLICT
     except Exception as e:
         print(e)
+
+
+@app.post("/buy_product")
+async def buy_products(payment_data: PaymentSchema, response: Response):
+    total_price = 100
+    key = uuid.uuid4()
+    description = [f"Покупка полного разбора за {total_price} RUB\n"]
+    payment = await Payment.create({
+        "amount": {
+            "value": f"{total_price}",
+            "currency": "RUB"
+        },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": "https://neurology-bot.digitalppl.com/demo_result_page"
+        },
+        "capture": True,
+        "description": f"{description[:2]}"
+    }, key).json().encode("UTF-8")
+    payment_data.price = total_price
+    payment_data.description = description
+    payment_data.status = "waiting"
+    await UserService.update_key(payment_data.username, str(key))
+    await PaymentService.add(**payment_data.model_dump(exclude_none=True))
+    return {"url": payment["confirmation"]["confirmation_url"]}
+
+
+@app.post("/confirm_payment", include_in_schema=False)
+async def confirm_payment(request: Request):
+    data = await request.json()
+    key = data["object"]["id"]
+    status = data["object"]["status"]
+    if status == "succeeded":
+        await PaymentService.update(key, "succeeded")
+        await UserService.update_transcripts(key, 1)
+    else:
+        await PaymentService.update(key, "canceled")

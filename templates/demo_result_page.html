@@ -82,7 +82,7 @@
                             element.innerHTML =
                                 '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
                                 '<a class="neurology-1-start-button name">' +
-                                '<p onclick="get_full_information()" class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
+                                '<p onclick="buy_full_information()" class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
                                 '</a>' +
                                 '<p class="welcome-footer-description"></p>';
 
@@ -95,6 +95,32 @@
         };
 
         startApp();
+
+        const buy_full_information = async () => {
+            if (day && month && year && name && gender) {
+                const user_name = tg.initDataUnsafe.user.username;
+                const data = {
+                    username: user_name,
+                    data: {
+                        day: day,
+                        month: month,
+                        year: year,
+                        name: name,
+                        gender: gender,
+                    }
+                }
+                await axios.post("/buy_product", data).then((response) => {
+                    if (response.status === 200) {
+                        window.location.href = response.data.url;
+                    } else {
+                        const error_element = document.querySelector(".welcome-footer-description");
+                        error_element.style.color = "red";
+                        error_element.style.fontSize = "18px";
+                        error_element.innerText = "У вас нет разборов";
+                    }
+                })
+            }
+        }
 
         const get_full_information = async () => {
             if (day && month && year && name && gender) {

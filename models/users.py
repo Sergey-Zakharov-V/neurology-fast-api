@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, Date, Boolean
+from pydantic import Json
+from sqlalchemy import Column, Integer, String, Date, Boolean, Float
 from database import Base
 
 
@@ -14,3 +15,15 @@ class Users(Base):
     transcripts = Column(Integer, nullable=False, default=0)
     register_at = Column(Date, nullable=False, default=datetime.utcnow)
     super_user = Column(Boolean, nullable=False, default=False)
+
+
+class Payments(Base):
+    __tablename__ = "Payments"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String, nullable=False)
+    price = Column(Float, nullable=False)
+    description = Column(String, nullable=False)
+    data = Column(Json, nullable=False)
+    date = Column(Date, nullable=False, default=datetime.utcnow)
+    status = Column(String, nullable=False)

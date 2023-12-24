@@ -1,4 +1,6 @@
-from pydantic import BaseModel
+from datetime import date
+
+from pydantic import BaseModel, json
 from typing import Optional
 
 
@@ -30,6 +32,18 @@ class UserFullSchema(BaseModel):
     year: int
     name: str
     gender: str
+
+    class Config:
+        from_attributes = True
+
+
+class PaymentSchema(BaseModel):
+    username: str
+    price: float | None = None
+    description: str | None = None
+    data: json
+    date: date | None = None
+    status: str | None = None
 
     class Config:
         from_attributes = True
