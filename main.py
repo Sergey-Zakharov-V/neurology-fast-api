@@ -240,6 +240,10 @@ async def buy_products(payment_data: PaymentSchema):
             "value": f"{total_price}",
             "currency": "RUB"
         },
+        "confirmation": {
+            "type": "redirect",
+            "return_url": "https://web.telegram.org/k/#@neurologia_bot"
+        },
         "capture": True,
         "description": f"{description[:2]}"
     }, key).json().encode("UTF-8")
