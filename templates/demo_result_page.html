@@ -124,14 +124,7 @@
                             currency: "RUB",
                             prices: [{label: 'Total Price', amount: 10000}],
                         };
-
-                        axios.post(endpoint, data)
-                            .then(response => {
-                                console.log(response.data);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                        tg.openInvoice(endpoint, data)
                     } else {
                         const error_element = document.querySelector(".welcome-footer-description");
                         error_element.style.color = "red";
