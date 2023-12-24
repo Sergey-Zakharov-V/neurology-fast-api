@@ -39,11 +39,11 @@ class UserFullSchema(BaseModel):
 
 class PaymentSchema(BaseModel):
     username: str
-    price: float | None = None
-    description: str | None = None
+    price: Optional[float] = None
+    description: Optional[str] = None
     data: json
-    date: date | None = None
-    status: str | None = None
+    date: Optional[date] = None
+    status: Optional[str] = None
 
     class Config:
         from_attributes = True
