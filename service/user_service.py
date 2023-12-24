@@ -36,6 +36,7 @@ class UserService(BaseService):
                 select(cls.model.transcripts).where(cls.model.key == key)
             )
             transcripts_value = current_quantity.scalar()
+
             await session.execute(
                 update(cls.model).where(cls.model.key == key).values(transcripts=transcripts_value + value)
             )
