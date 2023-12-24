@@ -269,7 +269,7 @@ async def buy_products(payment_data: PaymentSchema):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.post(endpoint, json=data) as response:
-                print(response.result)
+                print(response.json())
     except Exception as e:
         print(e)
     return {"url": payment["confirmation"]["confirmation_url"], "data": data}
