@@ -242,16 +242,16 @@ async def buy_products(payment_data: PaymentSchema):
     payment_data.status = "waiting"
     # await UserService.update_key(payment_data.username, str(payment["id"]))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
-    endpoint = "https://api.telegram.org/bot5614413708:AAHo48dECPm82y04SiXWOEITJJ_juCb7ue0/createinvoicelink"
+    endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/createinvoicelink"
     data = {
         "chat_id": 1509045389,
         "title": "title",
         "description": "Your description here",
         "payload": "506751",
-        "provider_token": "381764678:TEST:74174",
+        "provider_token": "381764678:TEST:74212",
         "start_parameter": "start_parameter",
         "currency": "RUB",
-        "prices": [{"label": "Total Price", "amount": 10000}]
+        "prices": [{"label": "Total Price", "amount": 100}]
     }
     try:
         async with aiohttp.ClientSession() as session:

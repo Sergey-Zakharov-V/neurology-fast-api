@@ -110,7 +110,6 @@
                 }
                 await axios.post("/buy_product", data).then((response) => {
                     if (response.status === 200) {
-                        console.log(response.data.url);
                         tg.openInvoice(response.data.url)
                     } else {
                         const error_element = document.querySelector(".welcome-footer-description");
