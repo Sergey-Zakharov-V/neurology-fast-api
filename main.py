@@ -230,10 +230,10 @@ async def name_page(request: Request, user: UserFullSchema):
 
 
 @app.post("/buy_product")
-async def buy_products(payment_data: PaymentSchema, response: Response):
+async def buy_products(payment_data: PaymentSchema):
     total_price = 100
     key = uuid.uuid4()
-    description = [f"Покупка полного разбора за {total_price} RUB\n"]
+    description = f"Покупка полного разбора за {total_price} RUB\n"
     payment = Payment.create({
         "amount": {
             "value": f"{total_price}",
