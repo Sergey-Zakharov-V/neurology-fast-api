@@ -74,16 +74,15 @@
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
                                 `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
-                                '<a class="neurology-1-start-button name"><p onclick=get_full_information() class="neurology-1-start-button-text name">Посмотреть полную версию</p></a>' +
-                                '<a class="neurology-1-start-button name" id="gift-button" style="display: none"><p class="neurology-1-start-button-text name" id="gift-text"></p></a>' +
+                                '<button class="neurology-1-start-button name"><p onclick=get_full_information() class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
                                 '<p class="welcome-footer-description"></p>'
                         } else {
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
                                 '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
-                                '<a class="neurology-1-start-button name">' +
+                                '<button class="neurology-1-start-button name">' +
                                 '<p onclick="buy_full_information()" class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
-                                '</a>' +
+                                '</button>' +
                                 '<p class="welcome-footer-description"></p>';
 
                         }
@@ -112,7 +111,7 @@
                 await axios.post("/buy_product", data).then((response) => {
                     if (response.status === 200) {
                         console.log(response.data.url);
-                        window.open(response.data.url);
+                        tg.openLink(response.data.url);
                     } else {
                         const error_element = document.querySelector(".welcome-footer-description");
                         error_element.style.color = "red";
