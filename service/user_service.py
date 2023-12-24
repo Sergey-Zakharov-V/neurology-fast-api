@@ -48,7 +48,7 @@ class PaymentService(BaseService):
     async def update(cls, key: str, status: str):
         async with async_session_maker() as session:
             result = await session.execute(
-                select(Users.username).where(cls.model.key == key)
+                select(Users.username).where(Users.key == key)
             )
             username = result.scalar()
             await session.execute(
