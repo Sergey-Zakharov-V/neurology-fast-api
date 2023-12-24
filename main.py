@@ -234,7 +234,7 @@ async def buy_products(payment_data: PaymentSchema, response: Response):
     total_price = 100
     key = uuid.uuid4()
     description = [f"Покупка полного разбора за {total_price} RUB\n"]
-    payment = await Payment.create({
+    payment = Payment.create({
         "amount": {
             "value": f"{total_price}",
             "currency": "RUB"
