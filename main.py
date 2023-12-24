@@ -258,16 +258,14 @@ async def buy_products(payment_data: PaymentSchema):
     bot_token = "6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc"
     endpoint = "https://api.telegram.org/bot5614413708:AAHo48dECPm82y04SiXWOEITJJ_juCb7ue0/createinvoicelink"
     data = {
-        {
-            "chat_id": 1509045389,
-            "title": "title",
-            "description": "Your description here",
-            "payload": "506751",
-            "provider_token": "381764678:TEST:74174",
-            "start_parameter": "start_parameter",
-            "currency": "RUB",
-            "prices": [{"label": "Total Price", "amount": 10000}]
-        }
+        "chat_id": 1509045389,
+        "title": "title",
+        "description": "Your description here",
+        "payload": "506751",
+        "provider_token": "381764678:TEST:74174",
+        "start_parameter": "start_parameter",
+        "currency": "RUB",
+        "prices": [{"label": "Total Price", "amount": 10000}]
     }
     try:
         async with aiohttp.ClientSession() as session:
