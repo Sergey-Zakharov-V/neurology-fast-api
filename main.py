@@ -253,7 +253,20 @@ async def buy_products(payment_data: PaymentSchema):
     payment = json.loads(payment)
     await UserService.update_key(payment_data.username, str(payment["id"]))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
-    return {"url": payment["confirmation"]["confirmation_url"]}
+    bot_token = "6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc"
+    endpoint = f'https://api.telegram.org/bot{bot_token}/sendInvoice'
+
+    data = {
+        'chat_id': 1509045389,
+        'title': "title",
+        'description': description,
+        'payload': key,
+        'provider_token': 'YOUR_YOOMONEY_PROVIDER_TOKEN',
+        'start_parameter': "start_parameter",
+        'currency': "RUB",
+        'prices': [{'label': 'Total Price', 'amount': 10000}],
+    }
+    return {"url": payment["confirmation"]["confirmation_url"], "data": data}
 
 
 @app.post("/confirm_payment", include_in_schema=False)
