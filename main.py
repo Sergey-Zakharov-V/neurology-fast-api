@@ -251,7 +251,7 @@ async def buy_products(payment_data: PaymentSchema):
     payment_data.status = "waiting"
     await UserService.update_key(payment_data.username, str(key))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
-    return {"url": payment["confirmation"]["confirmation_url"]}
+    return {"url": json.loads(payment.decode("UTF-8"))["confirmation"]["confirmation_url"]}
 
 
 @app.post("/confirm_payment", include_in_schema=False)
