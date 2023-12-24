@@ -3,6 +3,8 @@ import json
 import secrets
 import uuid
 
+import aiohttp
+
 from config import YOOKASSA_ACCOUNT_ID, YOOKASSA_SECRETKEY
 from fastapi import FastAPI, Request, Response, status
 from fastapi.responses import HTMLResponse
@@ -254,18 +256,25 @@ async def buy_products(payment_data: PaymentSchema):
     await UserService.update_key(payment_data.username, str(payment["id"]))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
     bot_token = "6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc"
-    endpoint = f'https://api.telegram.org/bot{bot_token}/sendInvoice'
-
+    endpoint = "https://api.telegram.org/bot5614413708:AAHo48dECPm82y04SiXWOEITJJ_juCb7ue0/createinvoicelink"
     data = {
-        'chat_id': 1509045389,
-        'title': "title",
-        'description': description,
-        'payload': key,
-        'provider_token': '381764678:TEST:74174',
-        'start_parameter': "start_parameter",
-        'currency': "RUB",
-        'prices': [{'label': 'Total Price', 'amount': 10000}],
+        {
+            "chat_id": 1509045389,
+            "title": "title",
+            "description": "Your description here",
+            "payload": "506751",
+            "provider_token": "381764678:TEST:74174",
+            "start_parameter": "start_parameter",
+            "currency": "RUB",
+            "prices": [{"label": "Total Price", "amount": 10000}]
+        }
     }
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(endpoint, json=data) as response:
+                print(response)
+    except Exception as e:
+        print(e)
     return {"url": payment["confirmation"]["confirmation_url"], "data": data}
 
 
