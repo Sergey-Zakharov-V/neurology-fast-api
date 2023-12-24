@@ -240,10 +240,6 @@ async def buy_products(payment_data: PaymentSchema):
             "value": f"{total_price}",
             "currency": "RUB"
         },
-        "confirmation": {
-            "type": "redirect",
-            "return_url": "https://neurology-bot.digitalppl.com/demo_result_page"
-        },
         "capture": True,
         "description": f"{description[:2]}"
     }, key).json().encode("UTF-8")
