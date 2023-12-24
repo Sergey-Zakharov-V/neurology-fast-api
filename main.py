@@ -251,7 +251,7 @@ async def buy_products(payment_data: PaymentSchema):
         "provider_token": "381764678:TEST:74212",
         "start_parameter": "start_parameter",
         "currency": "RUB",
-        "prices": [{"label": "Total Price", "amount": 100}]
+        "prices": [{"label": "Total Price", "amount": 10000}]
     }
     try:
         async with aiohttp.ClientSession() as session:
