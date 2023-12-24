@@ -233,6 +233,7 @@ async def name_page(request: Request, user: UserFullSchema):
 async def buy_products(payment_data: PaymentSchema):
     total_price = 100
     key = uuid.uuid4()
+    print(key)
     description = f"Покупка полного разбора за {total_price} RUB\n"
     payment = Payment.create({
         "amount": {
@@ -261,6 +262,6 @@ async def confirm_payment(request: Request):
     status = data["object"]["status"]
     if status == "succeeded":
         await PaymentService.update(key, "succeeded")
-        await UserService.update_transcripts(key, 1)
+        await UserService.update_transcripts(key=key, value=1)
     else:
         await PaymentService.update(key, "canceled")

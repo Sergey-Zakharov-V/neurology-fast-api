@@ -31,6 +31,7 @@ class UserService(BaseService):
     @classmethod
     async def update_transcripts(cls, key: str, value: int):
         async with async_session_maker() as session:
+            print(key)
             current_quantity = await session.execute(
                 select(cls.model.transcripts).where(cls.model.key == key)
             )
