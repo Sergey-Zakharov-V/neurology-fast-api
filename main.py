@@ -237,23 +237,10 @@ async def buy_products(payment_data: PaymentSchema):
     key = uuid.uuid4()
     print(key)
     description = f"Покупка полного разбора за {total_price} RUB\n"
-    payment = Payment.create({
-        "amount": {
-            "value": f"{total_price}",
-            "currency": "RUB"
-        },
-        "confirmation": {
-            "type": "redirect",
-            "return_url": "https://web.telegram.org/k/#@neurologia_bot"
-        },
-        "capture": True,
-        "description": f"{description}"
-    }, key).json().encode("UTF-8")
     payment_data.price = total_price
     payment_data.description = description
     payment_data.status = "waiting"
-    payment = json.loads(payment)
-    await UserService.update_key(payment_data.username, str(payment["id"]))
+    # await UserService.update_key(payment_data.username, str(payment["id"]))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
     endpoint = "https://api.telegram.org/bot5614413708:AAHo48dECPm82y04SiXWOEITJJ_juCb7ue0/createinvoicelink"
     data = {

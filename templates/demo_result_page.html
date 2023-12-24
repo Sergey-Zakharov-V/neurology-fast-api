@@ -122,6 +122,14 @@
             }
         }
 
+        WebApp.onEvent('invoiceClosed', function (object) {
+            if (object.status == 'paid') {
+                WebApp.close();
+            } else if (object.status == 'failed') {
+                WebApp.showAlert("Не беспокойтесь. Мы сохраним ваш выбор.");
+            }
+        });
+
         const get_full_information = async () => {
             if (day && month && year && name && gender) {
                 const user_name = tg.initDataUnsafe.user.username;
