@@ -261,7 +261,7 @@ async def buy_products(payment_data: PaymentSchema):
         'title': "title",
         'description': description,
         'payload': key,
-        'provider_token': 'YOUR_YOOMONEY_PROVIDER_TOKEN',
+        'provider_token': '381764678:TEST:74174',
         'start_parameter': "start_parameter",
         'currency': "RUB",
         'prices': [{'label': 'Total Price', 'amount': 10000}],
