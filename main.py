@@ -246,8 +246,8 @@ async def buy_products(payment_data: PaymentSchema):
         "chat_id": 1509045389,
         "title": "title",
         "description": "Your description here",
-        "payload": "218746",
-        "provider_token": "test_VlWRM9Be6QUU0Hxgpt4dGGOh_yJAwjz7YDYTDepo82Y",
+        "payload": f"{key}",
+        "provider_token": "381764678:TEST:74212",
         "start_parameter": "start_parameter",
         "currency": "RUB",
         "prices": [{"label": "Total Price", "amount": 10000}]
