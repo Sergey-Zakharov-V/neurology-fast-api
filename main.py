@@ -235,7 +235,6 @@ async def name_page(request: Request, user: UserFullSchema):
 async def buy_products(payment_data: PaymentSchema):
     total_price = 100
     key = uuid.uuid4()
-    print(key)
     description = f"Покупка полного разбора за {total_price} RUB\n"
     payment_data.price = total_price
     payment_data.description = description
@@ -247,8 +246,8 @@ async def buy_products(payment_data: PaymentSchema):
         "chat_id": 1509045389,
         "title": "title",
         "description": "Your description here",
-        "payload": "506751",
-        "provider_token": "381764678:TEST:74212",
+        "payload": "218746",
+        "provider_token": "test_VlWRM9Be6QUU0Hxgpt4dGGOh_yJAwjz7YDYTDepo82Y",
         "start_parameter": "start_parameter",
         "currency": "RUB",
         "prices": [{"label": "Total Price", "amount": 10000}]
