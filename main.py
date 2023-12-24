@@ -245,7 +245,7 @@ async def buy_products(payment_data: PaymentSchema):
             "return_url": "https://web.telegram.org/k/#@neurologia_bot"
         },
         "capture": True,
-        "description": f"{description[:2]}"
+        "description": f"{description}"
     }, key).json().encode("UTF-8")
     payment_data.price = total_price
     payment_data.description = description
