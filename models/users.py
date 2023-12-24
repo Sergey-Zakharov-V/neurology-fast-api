@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import Json
+from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy import Column, Integer, String, Date, Boolean, Float
 from database import Base
 
@@ -24,6 +24,6 @@ class Payments(Base):
     username = Column(String, nullable=False)
     price = Column(Float, nullable=False)
     description = Column(String, nullable=False)
-    data = Column(Json, nullable=False)
+    data = Column(JSON, nullable=False)
     date = Column(Date, nullable=False, default=datetime.utcnow)
     status = Column(String, nullable=False)
