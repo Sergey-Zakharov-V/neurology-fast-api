@@ -42,7 +42,6 @@ class PaymentSchema(BaseModel):
     username: str
     price: Optional[int] = None
     description: Optional[str] = None
-    data: Optional[Dict[str, Any]] = None
     date: Optional[date] = None
     status: Optional[str] = None
 

@@ -24,6 +24,5 @@ class Payments(Base):
     username = Column(String, nullable=False)
     price = Column(Integer, nullable=False)
     description = Column(String, nullable=False)
-    data = Column(JSON, nullable=False)
     date = Column(Date, nullable=False, default=datetime.utcnow)
     status = Column(String, nullable=False)
