@@ -74,13 +74,13 @@
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
                                 `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
-                                '<button onclick=get_full_information() class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
+                                '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
                                 '<p class="welcome-footer-description"></p>'
                         } else {
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
                                 '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
-                                '<button onclick=buy_full_information() class="neurology-1-start-button name">' +
+                                '<button onclick="buy_full_information()" class="neurology-1-start-button name">' +
                                 '<p class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
                                 '</button>' +
                                 '<p class="welcome-footer-description"></p>';
@@ -122,14 +122,6 @@
                 })
             }
         }
-
-        WebApp.onEvent('invoiceClosed', function (object) {
-            if (object.status == 'paid') {
-                WebApp.close();
-            } else if (object.status == 'failed') {
-                WebApp.showAlert("Не беспокойтесь. Мы сохраним ваш выбор.");
-            }
-        });
 
         const get_full_information = async () => {
             if (day && month && year && name && gender) {
