@@ -76,6 +76,7 @@
                                 `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
                                 '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
                                 '<p class="welcome-footer-description"></p>'
+                            return true
                         } else {
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
@@ -84,7 +85,7 @@
                                 '<p class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
                                 '</button>' +
                                 '<p class="welcome-footer-description"></p>';
-
+                            return false
                         }
                     }
                 }
@@ -95,6 +96,13 @@
 
         startApp();
 
+        WebApp.onEvent('invoiceClosed', function (object) {
+            if (object.status == 'paid') {
+                WebApp.close();
+                startApp()
+            }
+        });
+
         const buy_full_information = async () => {
             if (day && month && year && name && gender) {
                 const user_id = tg.initDataUnsafe.user.id;
@@ -103,13 +111,6 @@
                     const data = {
                         user_id: user_id,
                         username: user_name,
-                        data: {
-                            day: day,
-                            month: month,
-                            year: year,
-                            name: name,
-                            gender: gender,
-                        }
                     }
                     await axios.post("/buy_product", data).then((response) => {
                         if (response.status === 200) {
@@ -126,7 +127,6 @@
                 }
             }
         }
-
 
 
         const get_full_information = async () => {
