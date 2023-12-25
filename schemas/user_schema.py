@@ -38,11 +38,21 @@ class UserFullSchema(BaseModel):
 
 
 class PaymentSchema(BaseModel):
+    user_id: Optional[int] = None
     username: str
     price: Optional[float] = None
     description: Optional[str] = None
     data: json
     date: Optional[date] = None
+    status: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+        arbitrary_types_allowed = True
+
+
+class SuccessfulPaymentSchema(BaseModel):
+    key: str
     status: Optional[str] = None
 
     class Config:

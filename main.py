@@ -12,7 +12,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
 from starlette.staticfiles import StaticFiles
 
-from schemas.user_schema import UserData, UserSchema, UserFullSchema, PaymentSchema
+from schemas.user_schema import UserData, UserSchema, UserFullSchema, PaymentSchema, SuccessfulPaymentSchema
 from service.user_service import UserService, PaymentService
 from text_config import alphabet, destiny_descriptions, numbers_of_the_name
 from yookassa import Configuration, Payment
@@ -239,13 +239,13 @@ async def buy_products(payment_data: PaymentSchema):
     payment_data.price = total_price
     payment_data.description = description
     payment_data.status = "waiting"
-    # await UserService.update_key(payment_data.username, str(payment["id"]))
+    await UserService.update_key(payment_data.username, str(key))
     await PaymentService.add(**payment_data.model_dump(exclude_none=True))
     endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/createinvoicelink"
     data = {
-        "chat_id": 1509045389,
-        "title": "title",
-        "description": "Your description here",
+        "chat_id": payment_data.user_id,
+        "title": "Нейрология",
+        "description": "Полный разбор",
         "payload": f"{key}",
         "provider_token": "381764678:TEST:74212",
         "start_parameter": "start_parameter",
@@ -263,12 +263,9 @@ async def buy_products(payment_data: PaymentSchema):
 
 
 @app.post("/confirm_payment", include_in_schema=False)
-async def confirm_payment(request: Request):
-    data = await request.json()
-    key = data["object"]["id"]
-    status = data["object"]["status"]
-    if status == "succeeded":
-        await PaymentService.update(key, "succeeded")
-        await UserService.update_transcripts(key=key, value=1)
+async def confirm_payment(successful_payment: SuccessfulPaymentSchema):
+    if successful_payment.status == "succeeded":
+        await PaymentService.update(successful_payment.key, "succeeded")
+        await UserService.update_transcripts(key=successful_payment.key, value=1)
     else:
-        await PaymentService.update(key, "canceled")
+        await PaymentService.update(successful_payment.key, "canceled")

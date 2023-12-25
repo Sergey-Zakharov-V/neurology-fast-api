@@ -98,8 +98,10 @@
         const buy_full_information = async () => {
             if (day && month && year && name && gender) {
                 const user_name = tg.initDataUnsafe.user.username;
+                const user_id = tg.initDataUnsafe.user.id;
                 const data = {
                     username: user_name,
+                    user_id: user_id,
                     data: {
                         day: day,
                         month: month,
