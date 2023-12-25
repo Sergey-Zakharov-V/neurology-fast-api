@@ -96,13 +96,6 @@
 
         startApp();
 
-        WebApp.onEvent('invoiceClosed', function (object) {
-            if (object.status == 'paid') {
-                WebApp.close();
-                startApp()
-            }
-        });
-
         const buy_full_information = async () => {
             if (day && month && year && name && gender) {
                 const user_id = tg.initDataUnsafe.user.id;
@@ -158,6 +151,13 @@
                 }
             }
         }
+
+        WebApp.onEvent('invoiceClosed', function (object) {
+            if (object.status == 'paid') {
+                WebApp.close();
+                startApp()
+            }
+        });
     </script>
 </section>
 {% endblock %}
