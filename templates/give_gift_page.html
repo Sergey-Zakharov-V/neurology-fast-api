@@ -72,6 +72,11 @@
                 }
             }
         }
+        tg.onEvent('invoiceClosed', function (object) {
+            if (object.status == 'paid') {
+                window.location.href = "/get_link_gift_page"
+            }
+        });
     </script>
 </section>
 {% endblock %}

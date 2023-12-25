@@ -152,7 +152,6 @@
 
         tg.onEvent('invoiceClosed', function (object) {
             if (object.status == 'paid') {
-                tg.close();
                 startApp()
             }
         });
