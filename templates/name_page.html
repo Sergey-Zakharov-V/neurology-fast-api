@@ -54,6 +54,13 @@
                 error_element.innerText = "Введите ваше имя русскими буквами без спец. символов";
             }
         }
+        const inputElement = document.querySelector('.name-input');
+
+        inputElement.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                save_name()
+            }
+        })
     </script>
 </section>
 {% endblock %}
