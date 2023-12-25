@@ -42,7 +42,7 @@ class PaymentSchema(BaseModel):
     username: str
     price: Optional[float] = None
     description: Optional[str] = None
-    data: json
+    data: Optional[json] = None
     date: Optional[date] = None
     status: Optional[str] = None
 

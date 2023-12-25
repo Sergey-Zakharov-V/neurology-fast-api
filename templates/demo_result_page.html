@@ -97,54 +97,65 @@
 
         const buy_full_information = async () => {
             if (day && month && year && name && gender) {
-                const user_name = tg.initDataUnsafe.user.username;
                 const user_id = tg.initDataUnsafe.user.id;
-                const data = {
-                    username: user_name,
-                    data: {
+                const user_name = tg.initDataUnsafe.user.username;
+                if (user_name) {
+                    const data = {
+                        user_id: user_id,
+                        username: user_name,
+                        data: {
+                            day: day,
+                            month: month,
+                            year: year,
+                            name: name,
+                            gender: gender,
+                        }
+                    }
+                    await axios.post("/buy_product", data).then((response) => {
+                        if (response.status === 200) {
+                            tg.openInvoice(response.data.url)
+                        } else {
+                            const error_element = document.querySelector(".welcome-footer-description");
+                            if (error_element) {
+                                error_element.style.color = "red";
+                                error_element.style.fontSize = "18px";
+                                error_element.innerText = "У вас нет разборов";
+                            }
+                        }
+                    })
+                }
+            }
+        }
+
+
+
+        const get_full_information = async () => {
+            if (day && month && year && name && gender) {
+                const user_name = tg.initDataUnsafe.user.username;
+                if (user_name) {
+                    const data = {
                         day: day,
                         month: month,
                         year: year,
                         name: name,
                         gender: gender,
+                        username: user_name,
                     }
+                    await axios.post("/get_full_result", data).then((response) => {
+                        if (response.status === 200 && response.data.name_description) {
+                            name_description_element = document.querySelector(".neurology-5-result-container");
+                            name_description_element.innerHTML = response.data.name_description;
+                            startApp()
+                        } else {
+                            const error_element = document.querySelector(".welcome-footer-description");
+                            if (error_element) {
+                                error_element.style.color = "red";
+                                error_element.style.fontSize = "18px";
+                                error_element.innerText = "У вас нет разборов";
+                            }
+                        }
+                    })
                 }
-                await axios.post("/buy_product", data).then((response) => {
-                    if (response.status === 200) {
-                        tg.openInvoice(response.data.url)
-                    } else {
-                        const error_element = document.querySelector(".welcome-footer-description");
-                        error_element.style.color = "red";
-                        error_element.style.fontSize = "18px";
-                        error_element.innerText = "У вас нет разборов";
-                    }
-                })
-            }
-        }
-
-        const get_full_information = async () => {
-            if (day && month && year && name && gender) {
-                const user_name = tg.initDataUnsafe.user.username;
-                const data = {
-                    day: day,
-                    month: month,
-                    year: year,
-                    name: name,
-                    gender: gender,
-                    username: user_name,
-                }
-                await axios.post("/get_full_result", data).then((response) => {
-                    if (response.status === 200 && response.data.name_description) {
-                        name_description_element = document.querySelector(".neurology-5-result-container");
-                        name_description_element.innerHTML = response.data.name_description;
-                        startApp()
-                    } else {
-                        const error_element = document.querySelector(".welcome-footer-description");
-                        error_element.style.color = "red";
-                        error_element.style.fontSize = "18px";
-                        error_element.innerText = "У вас нет разборов";
-                    }
-                })
             }
         }
     </script>

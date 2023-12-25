@@ -56,22 +56,21 @@
         const check_input = async () => {
             const element = document.querySelector(".neurology-6-input");
             if (element && element.value) {
-                const data = {
-                    username: element.value
-                };
-
-                try {
-                    const response = await axios.post("/give_gift", data, {
-                        withCredentials: true,
-                    });
-                    if (response.status === 200) {
-                        window.location.href = "/get_link_gift_page"
-                    }
-                } catch (error) {
-                    console.error(error);
+                const user_id = tg.initDataUnsafe.user.id;
+                if (user_id) {
+                    const data = {
+                        user_id: user_id,
+                        username: element.value,
+                    };
+                    await axios.post("/buy_product", data).then((response) => {
+                        if (response.status === 200) {
+                            tg.openInvoice(response.data.url)
+                        }
+                    }).error((error) => {
+                        console.log(error)
+                    })
                 }
             }
-
         }
     </script>
 </section>

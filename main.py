@@ -159,7 +159,6 @@ async def calculation(day: int,
             numbers_of_fate = sum_of_numbers
     # Расчёт числа имени
     total_sum = sum(alphabet[letter] for letter in name.upper() if letter.isalpha())
-    print(total_sum)
     if len(str(total_sum)) > 1:
         while len(str(total_sum)) > 1:
             sum_of_numbers = 0
