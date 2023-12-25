@@ -131,12 +131,17 @@
                         name: name,
                         gender: gender,
                         username: user_name,
-                    }
-                    await axios.post("/get_full_result", data).then((response) => {
+                    };
+
+                    try {
+                        const response = await axios.post("/get_full_result", data);
+
                         if (response.status === 200 && response.data.name_description) {
-                            name_description_element = document.querySelector(".neurology-5-result-container");
-                            name_description_element.innerHTML = response.data.name_description;
-                            startApp()
+                            const name_description_element = document.querySelector(".neurology-5-result-container");
+                            if (name_description_element) {
+                                name_description_element.innerHTML = response.data.name_description;
+                                startApp();
+                            }
                         } else {
                             const error_element = document.querySelector(".welcome-footer-description");
                             if (error_element) {
@@ -145,10 +150,12 @@
                                 error_element.innerText = "У вас нет разборов";
                             }
                         }
-                    })
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }
             }
-        }
+        };
 
         tg.onEvent('invoiceClosed', function (object) {
             if (object.status == 'paid') {

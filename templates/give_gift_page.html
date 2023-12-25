@@ -62,16 +62,17 @@
                         user_id: user_id,
                         username: element.value,
                     };
-                    await axios.post("/buy_product", data).then(response => {
+                    try {
+                        const response = await axios.post("/buy_product", data);
                         if (response.status === 200) {
-                            tg.openInvoice(response.data.url)
+                            tg.openInvoice(response.data.url);
                         }
-                    }).error(error => {
-                        console.log(error)
-                    })
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }
             }
-        }
+        };
 
         tg.onEvent('invoiceClosed', function (object) {
             if (object.status == 'paid') {
