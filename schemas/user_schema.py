@@ -40,7 +40,7 @@ class UserFullSchema(BaseModel):
 class PaymentSchema(BaseModel):
     user_id: Optional[int] = None
     username: str
-    price: Optional[float] = None
+    price: Optional[int] = None
     description: Optional[str] = None
     data: Optional[Dict[str, Any]] = None
     date: Optional[date] = None
