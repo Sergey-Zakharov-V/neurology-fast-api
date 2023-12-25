@@ -62,16 +62,17 @@
                         user_id: user_id,
                         username: element.value,
                     };
-                    await axios.post("/buy_product", data).then((response) => {
+                    await axios.post("/buy_product", data).then(response => {
                         if (response.status === 200) {
                             tg.openInvoice(response.data.url)
                         }
-                    }).error((error) => {
+                    }).error(error => {
                         console.log(error)
                     })
                 }
             }
         }
+
         tg.onEvent('invoiceClosed', function (object) {
             if (object.status == 'paid') {
                 window.location.href = "/get_link_gift_page"
