@@ -1,7 +1,7 @@
 from datetime import date
 
 from pydantic import BaseModel, json
-from typing import Optional
+from typing import Optional, Dict, Any
 
 
 class UserSchema(BaseModel):
@@ -42,7 +42,7 @@ class PaymentSchema(BaseModel):
     username: str
     price: Optional[float] = None
     description: Optional[str] = None
-    data: Optional[json] = None
+    data: Optional[Dict[str, Any]] = None
     date: Optional[date] = None
     status: Optional[str] = None
 
