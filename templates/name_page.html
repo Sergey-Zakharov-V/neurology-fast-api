@@ -41,7 +41,7 @@
         const save_name = (event) => {
             event.preventDefault()
             const element = document.querySelector(".name-input");
-            const user_name = element.value;
+            const user_name = element.value.replace(/\s/g, '');
             const russianLettersRegExp = /^[а-яёА-ЯЁ]+$/;
             const specialCharsRegExp = /[!@#$%^&*(),.?":{}|<>]/;
             if (user_name && russianLettersRegExp.test(user_name) && !specialCharsRegExp.test(user_name)) {
