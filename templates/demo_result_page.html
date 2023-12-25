@@ -58,7 +58,6 @@
                     const response = await axios.post("/get_user", user_data, {
                         withCredentials: true,
                     });
-                    console.log(response)
                     if (response.status === 200 && response.data) {
                         if (response.data.transcripts > 0) {
                             let transcripts_name = ''
@@ -158,7 +157,7 @@
         };
 
         tg.onEvent('invoiceClosed', function (object) {
-            if (object.status == 'paid') {
+            if (object.status === 'paid') {
                 startApp()
             }
         });
