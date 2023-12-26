@@ -40,6 +40,7 @@ class UserFullSchema(BaseModel):
 class PaymentSchema(BaseModel):
     user_id: Optional[int] = None
     username: str
+    key: Optional[str] = None
     price: Optional[int] = None
     description: Optional[str] = None
     date: Optional[date] = None

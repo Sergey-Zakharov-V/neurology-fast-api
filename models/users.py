@@ -22,6 +22,7 @@ class Payments(Base):
 
     id = Column(Integer, primary_key=True)
     username = Column(String, nullable=False)
+    key = Column(String, nullable=False)
     price = Column(Integer, nullable=False)
     description = Column(String, nullable=False)
     date = Column(Date, nullable=False, default=datetime.utcnow)
