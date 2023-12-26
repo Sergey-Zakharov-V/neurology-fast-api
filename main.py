@@ -263,7 +263,8 @@ async def buy_products(payment_data: PaymentSchema):
 
 
 @app.post("/check_pay")
-async def check_pay(key: str):
+async def check_pay(request_data: dict):
+    key = request_data.get("key")
     if key:
         result = await PaymentService.find_one_or_none(key=key)
         return result
