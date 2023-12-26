@@ -104,7 +104,10 @@
                     }
                     await axios.post("/buy_product", data).then((response) => {
                         if (response.status === 200) {
-                            tg.openInvoice(response.data.url)
+                            if (response.data.url) {
+                                tg.openInvoice(response.data.url)
+                                setTimeout(() => check_pay(response.data.key), 2000);
+                            }
                         } else {
                             const error_element = document.querySelector(".welcome-footer-description");
                             if (error_element) {
@@ -116,6 +119,22 @@
                     })
                 }
             }
+        }
+
+
+        const check_pay = async (key) => {
+            const data = {
+                key: key,
+            }
+            await axios.post("/check_pay", data).then(response => {
+                if (response.status === 200) {
+                    if (response.data.status === "succeeded") {
+                        startApp();
+                    } else {
+                        setTimeout(() => check_pay(key), 2000);
+                    }
+                }
+            })
         }
 
 
@@ -155,12 +174,6 @@
                 }
             }
         };
-
-        tg.onEvent('invoiceClosed', function (object) {
-            if (object.status === 'paid') {
-                startApp()
-            }
-        });
     </script>
 </section>
 {% endblock %}

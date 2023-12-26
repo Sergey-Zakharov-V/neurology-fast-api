@@ -259,8 +259,14 @@ async def buy_products(payment_data: PaymentSchema):
                 url = result.get('result')
     except Exception as e:
         print(e)
-    data.update({"provider_token": None})
-    return {"url": url, "data": data}
+    return {"url": url, "key": key}
+
+
+@app.post("/check_pay")
+async def check_pay(key: str):
+    if key:
+        result = await PaymentService.find_one_or_none(key=key)
+        return result
 
 
 @app.post("/confirm_payment", include_in_schema=False)
