@@ -220,10 +220,18 @@ async def name_page(request: Request, user: UserFullSchema):
         if result:
             if result.transcripts > 0:
                 await UserService.update(username=user.username, value=-1)
-                result = await calculation(day=user.day, month=user.month, year=user.year,
+                text = await calculation(day=user.day, month=user.month, year=user.year,
                                            name=user.name,
                                            gender=user.gender)
-                return {"title": "Neurology", "name_description": result}
+                endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/sendMessage"
+                async with aiohttp.ClientSession() as session:
+                    data = {
+                        "chat_id": result.user_id,
+                        "text": text,
+                    }
+                    async with session.post(endpoint, json=data) as response:
+                        pass
+                return {"title": "Neurology", "name_description": text}
             else:
                 return status.HTTP_409_CONFLICT
     except Exception as e:
