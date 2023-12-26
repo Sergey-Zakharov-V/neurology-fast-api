@@ -47,7 +47,7 @@
                 name_description_element.innerHTML = response.data.name_description;
             })
         }
-        const startApp = async () => {
+        const startApp = async (payment = false) => {
             try {
                 let tg = window.Telegram.WebApp;
                 const user_name = tg.initDataUnsafe.user.username;
@@ -71,10 +71,14 @@
                                 transcripts_name = 'разборов';
                             }
                             const element = document.querySelector(".welcome-hero");
-                            element.innerHTML =
-                                `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
-                                '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
-                                '<p class="welcome-footer-description"></p>'
+                            if (payment) {
+                                element.innerHTML = '<a href="{{ url_for(\'give_gift_page\') }}" class="neurology-1-start-button"><p class="neurology-1-start-button-text gift">Подарить разбор</p><img src="{{ url_for(\'static\', path=\'images/star_6.png\') }}" alt="star" class="neurology-1-start-button-img"></a>';
+                            } else {
+                                element.innerHTML =
+                                    `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
+                                    '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
+                                    '<p class="welcome-footer-description"></p>'
+                            }
                         } else {
                             const element = document.querySelector(".welcome-hero");
                             element.innerHTML =
@@ -123,10 +127,10 @@
 
 
         const check_pay = async (key) => {
-            await axios.post("/check_pay", { key }).then(response => {
+            await axios.post("/check_pay", {key}).then(response => {
                 if (response.status === 200) {
                     if (response.data.status === "succeeded") {
-                        startApp();
+                        startApp(true);
                     } else {
                         setTimeout(() => check_pay(key), 2000);
                     }
