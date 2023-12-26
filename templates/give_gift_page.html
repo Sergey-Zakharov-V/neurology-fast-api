@@ -43,6 +43,13 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+        tg.onEvent('invoiceClosed', function (object) {
+            window.location.href = "/get_link_gift_page"
+            if (object.status === 'paid') {
+                window.location.href = "/get_link_gift_page"
+            }
+        });
+
         function isTextInput(node) {
             return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1;
         }
@@ -73,13 +80,6 @@
                 }
             }
         };
-
-        tg.onEvent('invoiceClosed', function (object) {
-            window.location.href = "/get_link_gift_page"
-            if (object.status === 'paid') {
-                window.location.href = "/get_link_gift_page"
-            }
-        });
     </script>
 </section>
 {% endblock %}

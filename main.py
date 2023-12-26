@@ -259,6 +259,7 @@ async def buy_products(payment_data: PaymentSchema):
                 url = result.get('result')
     except Exception as e:
         print(e)
+    data.update({"provider_token": None})
     return {"url": url, "data": data}
 
 
