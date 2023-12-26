@@ -228,8 +228,7 @@ async def name_page(request: Request, user: UserFullSchema):
                     text_for_tg = text
                     text_for_tg = BeautifulSoup(text_for_tg, 'html.parser')
                     for tag in text_for_tg.find_all(True):
-                        if tag.name not in ['br', 'b']:
-                            tag.unwrap()
+                        tag.unwrap()
                     data = {
                         "chat_id": result.user_id,
                         "text": str(text_for_tg),
