@@ -134,6 +134,12 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 2;
 }
 
+.logo-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .welcome-page-logo {
     width: 90px;
 }

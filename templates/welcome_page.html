@@ -16,11 +16,14 @@
                  class="welcome-background-angles img-4">
         </div>
         <div class="welcome-logotype">
-            <img src="{{ url_for('static', path='images/Moon.svg')}}" alt="logo" class="welcome-page-logo">
-            <h1 class="welcome-title">Нейрология</h1>
-            <h2 class="welcome-description">Ваш путь к нумерологическим тайнам</h2>
+            <a class="logo-link" href="/">
+                <img src="{{ url_for('static', path='images/Moon.svg')}}" alt="logo" class="welcome-page-logo">
+                <h1 class="welcome-title">Нейрология</h1>
+                <h2 class="welcome-description">Ваш путь к нумерологическим тайнам</h2>
+            </a>
         </div>
         <div class="welcome-hero">
+            <p class="neurology-6-input-text">Вам доступен 1 бесплатный разбор.</p>
             <a href="{{ url_for('name_page') }}" class="neurology-1-start-button">
                 <p class="neurology-1-start-button-text">Начать</p>
                 <img src="{{ url_for('static', path='images/star_6.png') }}" alt="star"
