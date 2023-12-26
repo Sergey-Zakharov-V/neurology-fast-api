@@ -235,7 +235,7 @@ async def buy_products(payment_data: PaymentSchema):
     total_price = 100
     key = uuid.uuid4()
     description = f"Покупка полного разбора за {total_price} RUB\n"
-    payment_data.key = key
+    payment_data.key = str(key)
     payment_data.price = total_price
     payment_data.description = description
     payment_data.status = "waiting"
@@ -260,7 +260,7 @@ async def buy_products(payment_data: PaymentSchema):
                 url = result.get('result')
     except Exception as e:
         print(e)
-    return {"url": url, "key": key}
+    return {"url": url, "key": str(key)}
 
 
 @app.post("/check_pay")
