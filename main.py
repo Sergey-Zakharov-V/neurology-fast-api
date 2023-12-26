@@ -231,13 +231,11 @@ async def name_page(request: Request, user: UserFullSchema):
                         tag.unwrap()
                     data = {
                         "chat_id": result.user_id,
-                        "text": str(text_for_tg),
+                        "text": "Ваш разбор\n" + str(text_for_tg),
                         "parse_mode": "HTML",
                     }
                     async with session.post(endpoint, json=data) as response:
-                        print(response)
-                        response_text = await response.text()
-                        print(response_text)
+                        pass
                 return {"title": "Neurology", "name_description": text}
             else:
                 return status.HTTP_409_CONFLICT
