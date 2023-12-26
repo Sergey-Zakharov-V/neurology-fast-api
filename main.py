@@ -231,7 +231,7 @@ async def name_page(request: Request, user: UserFullSchema):
                         "parse_mode": "html",
                     }
                     async with session.post(endpoint, json=data) as response:
-                        pass
+                        print(response)
                 return {"title": "Neurology", "name_description": text}
             else:
                 return status.HTTP_409_CONFLICT
