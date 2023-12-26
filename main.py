@@ -228,7 +228,7 @@ async def name_page(request: Request, user: UserFullSchema):
                     data = {
                         "chat_id": result.user_id,
                         "text": text,
-                        "parse_mode": "HTML",
+                        "parse_mode": "html",
                     }
                     async with session.post(endpoint, json=data) as response:
                         pass
