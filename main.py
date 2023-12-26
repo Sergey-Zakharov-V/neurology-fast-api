@@ -232,7 +232,7 @@ async def name_page(request: Request, user: UserFullSchema):
                             tag.unwrap()
                     data = {
                         "chat_id": result.user_id,
-                        "text": text_for_tg,
+                        "text": str(text_for_tg),
                         "parse_mode": "HTML",
                     }
                     async with session.post(endpoint, json=data) as response:
