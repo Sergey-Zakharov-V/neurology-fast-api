@@ -227,7 +227,7 @@ async def name_page(request: Request, user: UserFullSchema):
                 async with aiohttp.ClientSession() as session:
                     data = {
                         "chat_id": result.user_id,
-                        "text": text,
+                        "text": text.replace("<h3>", "").replace("</h3>", ""),
                         "parse_mode": "HTML",
                     }
                     async with session.post(endpoint, json=data) as response:
