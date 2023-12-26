@@ -2,7 +2,7 @@ import calendar
 import json
 import secrets
 import uuid
-
+from bs4 import BeautifulSoup
 import aiohttp
 
 from config import YOOKASSA_ACCOUNT_ID, YOOKASSA_SECRETKEY
@@ -225,9 +225,14 @@ async def name_page(request: Request, user: UserFullSchema):
                                            gender=user.gender)
                 endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/sendMessage"
                 async with aiohttp.ClientSession() as session:
+                    text_for_tg = text
+                    soup = BeautifulSoup(text, 'html.parser')
+                    for tag in soup.find_all(True):
+                        if tag.name not in ['br', 'b']:
+                            tag.unwrap()
                     data = {
                         "chat_id": result.user_id,
-                        "text": text.replace("<h3>", "").replace("</h3>", ""),
+                        "text": text_for_tg,
                         "parse_mode": "HTML",
                     }
                     async with session.post(endpoint, json=data) as response:
