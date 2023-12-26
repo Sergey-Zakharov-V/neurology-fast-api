@@ -43,12 +43,6 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        tg.onEvent('invoiceClosed', function (object) {
-            window.location.href = "/get_link_gift_page"
-            if (object.status === 'paid') {
-                window.location.href = "/get_link_gift_page"
-            }
-        });
 
         function isTextInput(node) {
             return ['INPUT', 'TEXTAREA'].indexOf(node.nodeName) !== -1;
@@ -72,7 +66,10 @@
                     try {
                         const response = await axios.post("/buy_product", data);
                         if (response.status === 200) {
-                            tg.openInvoice(response.data.url);
+                            if (response.data.url) {
+                                tg.openInvoice(response.data.url)
+                                setTimeout(() => check_pay(response.data.key), 2000);
+                            }
                         }
                     } catch (error) {
                         console.error(error);
@@ -80,6 +77,18 @@
                 }
             }
         };
+
+        const check_pay = async (key) => {
+            await axios.post("/check_pay", {key}).then(response => {
+                if (response.status === 200) {
+                    if (response.data.status === "succeeded") {
+                        window.location.href = "get_link_gift_page";
+                    } else {
+                        setTimeout(() => check_pay(key), 2000);
+                    }
+                }
+            })
+        }
     </script>
 </section>
 {% endblock %}
