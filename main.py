@@ -226,8 +226,8 @@ async def name_page(request: Request, user: UserFullSchema):
                 endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/sendMessage"
                 async with aiohttp.ClientSession() as session:
                     text_for_tg = text
-                    soup = BeautifulSoup(text, 'html.parser')
-                    for tag in soup.find_all(True):
+                    text_for_tg = BeautifulSoup(text_for_tg, 'html.parser')
+                    for tag in text_for_tg.find_all(True):
                         if tag.name not in ['br', 'b']:
                             tag.unwrap()
                     data = {
