@@ -134,6 +134,10 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 2;
 }
 
+.welcome-logotype.name {
+    height: 40vh;
+}
+
 .logo-link {
     display: flex;
     flex-direction: column;
@@ -202,6 +206,13 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+}
+
+.neurology-1-start-button.demo {
+    margin: 40px 0;
+    padding: 0 2px;
+    display: flex;
+    justify-content: center;
 }
 
 .neurology-1-start-button-text {
@@ -274,6 +285,11 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+.name-page-description-text {
+    font-size: 12px;
+    font-family: 'Philosopher', sans-serif;
+}
+
 .gift-title {
     font-size: 45px;
     margin-bottom: 30px;
@@ -282,8 +298,8 @@ h1, h2, h3, h4, h5, h6 {
 .info-page-description {
     width: 80%;
     color: #FFE6CD;
-    text-align: center;
-    font-family: Philosopher, sans-serif;
+    /*text-align: center;*/
+    font-family: 'Philosopher', sans-serif;
     font-size: 15px;
     font-style: normal;
     font-weight: 400;
@@ -292,53 +308,54 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
 }
 
+.welcome-hero.name, .welcome-hero.demo {
+    margin-top: 0;
+}
+
+
 .name-input {
     width: 212px;
     margin-bottom: 36px;
-    background-color: transparent;
-    border-radius: 0;
-    border-right: 0;
-    border-left: 0;
-    border-top: 0;
-    border-color: #FDFDFF;
-    padding: 10px;
-    text-align: center;
+    background-color: #FFF;
+    box-shadow: 0px 4px 10px 0px rgba(255, 255, 255, 0.20);
+    border-radius: 30px;
+    border: none;
+    padding: 12px 0 12px 20px;
+    line-height: 0;
 }
 
 .name-input::placeholder {
-    color: #FDFDFF;
+    color: #3C4069;
     font-family: Philosopher, sans-serif;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 0.44px;
+    font-size: 22px;
+    font-weight: 700;
     pointer-events: none;
+    line-height: 0;
 }
 
 .name-input:focus {
     width: 212px;
+    max-height: 42px;
     font-family: Philosopher, sans-serif;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: 700;
     letter-spacing: 0.44px;
-    font-size: 18px;
-    color: #FDFDFF;
+    font-size: 22px;
+    color: #3C4069;
     outline: 0;
-    padding: 10px 0;
-    text-align: center;
+    padding: 12px 0 12px 20px;
+    line-height: 0;
 }
 
 .name-input:valid {
     width: 212px;
+    max-height: 42px;
     font-family: Philosopher, sans-serif;
-    font-weight: 400;
-    line-height: normal;
+    font-weight: 700;
     letter-spacing: 0.44px;
-    font-size: 18px;
-    color: #FDFDFF;
+    font-size: 22px;
+    color: #3C4069;
     outline: 0;
-    padding: 10px;
-    text-align: center;
+    padding: 12px 0 12px 20px;
 }
 
 .neurology-1-start-button.name {
@@ -348,6 +365,11 @@ h1, h2, h3, h4, h5, h6 {
 .neurology-1-start-button-text.name {
     text-align: center;
     margin-right: 0;
+}
+
+.neurology-1-start-button-text.demo {
+    margin-right: 0;
+    font-size: 20px;
 }
 
 .circle-moon-img.gender {
@@ -532,6 +554,7 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(17px);
     margin-top: 24px;
     padding: 22px;
+    max-height: 251px;
 }
 
 .neurology-5-result-title {
@@ -681,9 +704,30 @@ h1, h2, h3, h4, h5, h6 {
 .neurology-7-input-text {
     color: #FFF;
     text-align: center;
-    font-family: Philosopher, sans-serif;
+    width: 340px;
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
+    max-width: 70%;
+}
+
+.neurology-7-input-text.ready {
+    color: #FFE6CD;
+    text-align: center;
+    font-family: Philosopher, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.neurology-7-input-text.pay {
+    color: #FFF;
+    text-align: center;
+    font-family: Philosopher, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 418px;
+    margin: 40px 0;
 }
 
 .neurology-7-input:valid {
@@ -693,6 +737,24 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
 }
 
+.welcome-hero-demo-text-1 {
+    color: #FFE6CD;
+    text-align: center;
+    font-family: Philosopher, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.welcome-hero-demo-text-2 {
+    width: 340px;
+    margin: 0;
+    color: #FFF;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+}
+
 @media (max-height: 500px) {
     .info-page-description {
         display: none;
@@ -700,6 +762,61 @@ h1, h2, h3, h4, h5, h6 {
 
     .welcome-logotype.gift {
         margin: 0;
+    }
+
+    .name-page-description.date {
+        margin: 0;
+    }
+
+    .neurology-7-input-text.date {
+        margin: 0;
+    }
+}
+
+@media (max-height: 640px) {
+    .welcome-logotype.name {
+        height: 70vh;
+    }
+
+    .date_of_birth_container {
+        margin-bottom: 0;
+    }
+
+    .welcome-hero-demo-text-1 {
+        font-size: 14px;
+    }
+
+    .welcome-hero-demo-text-2 {
+        margin-bottom: 10px;
+    }
+
+    .neurology-1-start-button.demo {
+        margin: 0 0 40px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .neurology-1-start-button-text.demo {
+        font-size: 18px;
+        margin-right: 0;
+    }
+}
+
+@media (min-height: 640px) {
+    .name-input.name {
+        margin-bottom: 30vh;
+    }
+
+    .welcome-logotype.date {
+        height: 50vh;
+    }
+
+    .welcome-hero.date {
+        margin-top: 0;
+    }
+
+    .date_of_birth_container {
+        margin-bottom: 12vh;
     }
 }
 
@@ -727,10 +844,6 @@ h1, h2, h3, h4, h5, h6 {
 
     .name-page-description.gift-title {
         margin-bottom: 0;
-    }
-
-    .name-input {
-        margin-top: 70px;
     }
 
     .neurology-7-input-container {

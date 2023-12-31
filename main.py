@@ -91,6 +91,16 @@ async def name_page(request: Request):
     return templates.TemplateResponse("name_page.html", {"request": request, "title": "Neurology"})
 
 
+@app.get("/ready_free_page", response_class=HTMLResponse)
+async def ready_free_page(request: Request):
+    return templates.TemplateResponse("ready_free_page.html", {"request": request, "title": "Neurology"})
+
+
+@app.get("/ready_page", response_class=HTMLResponse)
+async def ready_page(request: Request):
+    return templates.TemplateResponse("ready_page.html", {"request": request, "title": "Neurology"})
+
+
 @app.get("/gender_page", response_class=HTMLResponse)
 async def name_page(request: Request):
     return templates.TemplateResponse("gender_page.html", {"request": request, "title": "Neurology"})

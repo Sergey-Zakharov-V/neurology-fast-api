@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container name-container">
+        <img src="{{ url_for('static', path='images/f2.png') }}" alt="" class="circle-moon-img">
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div onclick=hide_keyboard() class="welcome-logotype">
+            <a class="logo-link" href="/">
+                <img src="{{ url_for('static', path='images/Stars.svg')}}" alt="logo" class="welcome-page-logo">
+            </a>
+            <h2 class="name-page-description">Ваш<br/>разбор готов!</h2>
+            <p class="neurology-7-input-text pay">Полное описание вашей психоматрицы с детальным анализом уже лежит в
+                нашем Telegram боте!</p>
+            <a href="/demo_result_page" class="neurology-1-start-button name">
+                <p class="neurology-1-start-button-text name">Перейти в Telegram</p>
+            </a>
+        </div>
+    </div>
+    <script>
+    </script>
+</section>
+{% endblock %}

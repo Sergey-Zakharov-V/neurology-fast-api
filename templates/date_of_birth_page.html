@@ -14,13 +14,16 @@
             <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
                  class="welcome-background-angles img-4">
         </div>
-        <div class="welcome-logotype">
+        <div class="welcome-logotype date">
             <a class="logo-link" href="/">
                 <img src="{{ url_for('static', path='images/Stars.svg')}}" alt="logo" class="welcome-page-logo">
-                <h2 class="name-page-description">выберите дату <br/> рождения</h2>
+                <h2 class="name-page-description date">начните путь<br/>самопознания<br/>с нумерологии</h2>
+                <p class="neurology-7-input-text date">
+                    Введите вашу дату рождения и откройте первый ключ к вашему уникальному числу судьбы
+                </p>
             </a>
         </div>
-        <div class="welcome-hero">
+        <div class="welcome-hero date">
             <div class="date_of_birth_container">
                 <div class="neurology-4-info-date-day-container">
                     <button onclick=open_day_button() class="neurology-4-info-date-day">
@@ -183,7 +186,7 @@
             const month = localStorage.getItem("month");
             const year = localStorage.getItem("year");
             if (day && month && year) {
-                window.location.href = "/demo_result_page"
+                window.location.href = "/gender_page"
             } else {
                 const error_element = document.querySelector(".welcome-footer-description");
                 error_element.style.color = "red";

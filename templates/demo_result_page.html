@@ -27,7 +27,13 @@
                 <p class="neurology-5-result-2"></p>
             </div>
         </div>
-        <div class="welcome-hero"></div>
+        <div class="welcome-hero demo">
+            <p class="welcome-hero-demo-text-1">Хотите узнать больше?</p>
+            <p class="welcome-hero-demo-text-2">Получите полный разбор вашей личности, включая подробный анализ числа имени, числа судьбы психоматрицы. Откройте полную картину вашей уникальной личности.</p>
+            <a onclick=buy_full_information(event) href="#" class="neurology-1-start-button demo">
+                <p class="neurology-1-start-button-text demo">Получить полный разбор</p>
+            </a>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script async>
@@ -60,43 +66,43 @@
                     const response = await axios.post("/get_user", user_data, {
                         withCredentials: true,
                     });
-                    if (response.status === 200 && response.data) {
-                        if (response.data.transcripts > 0) {
-                            let transcripts_name = ''
-                            if (response.data.transcripts === 1) {
-                                transcripts_name = 'разбор';
-                            } else if (response.data.transcripts % 10 === 1 && response.data.transcripts % 100 !== 11) {
-                                transcripts_name = 'разбор';
-                            } else if (response.data.transcripts % 10 >= 2 && response.data.transcripts % 10 <= 4 && (response.data.transcripts % 100 < 10 || response.data.transcripts % 100 >= 20)) {
-                                transcripts_name = 'разбора';
-                            } else {
-                                transcripts_name = 'разборов';
-                            }
-                            const element = document.querySelector(".welcome-hero");
-                            if (payment) {
-                                element.innerHTML = '<a href="/give_gift_page" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Подарить разбор</p></a>' +
-                                    '<p class="welcome-footer-description"></p>'
-                            } else {
-                                element.innerHTML =
-                                    `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
-                                    '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
-                                    '<p class="welcome-footer-description"></p>'
-                            }
-                        } else {
-                            const element = document.querySelector(".welcome-hero");
-                            if (payment) {
-                                element.innerHTML = '<a href="/give_gift_page" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Подарить разбор</p></a>' +
-                                    '<p class="welcome-footer-description"></p>'
-                            } else {
-                                element.innerHTML =
-                                    '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
-                                    '<button onclick="buy_full_information()" class="neurology-1-start-button name">' +
-                                    '<p class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
-                                    '</button>' +
-                                    '<p class="welcome-footer-description"></p>';
-                            }
-                        }
-                    }
+                    // if (response.status === 200 && response.data) {
+                    //     if (response.data.transcripts > 0) {
+                    //         let transcripts_name = ''
+                    //         if (response.data.transcripts === 1) {
+                    //             transcripts_name = 'разбор';
+                    //         } else if (response.data.transcripts % 10 === 1 && response.data.transcripts % 100 !== 11) {
+                    //             transcripts_name = 'разбор';
+                    //         } else if (response.data.transcripts % 10 >= 2 && response.data.transcripts % 10 <= 4 && (response.data.transcripts % 100 < 10 || response.data.transcripts % 100 >= 20)) {
+                    //             transcripts_name = 'разбора';
+                    //         } else {
+                    //             transcripts_name = 'разборов';
+                    //         }
+                    //         const element = document.querySelector(".welcome-hero");
+                    //         if (payment) {
+                    //             element.innerHTML = '<a href="/give_gift_page" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Подарить разбор</p></a>' +
+                    //                 '<p class="welcome-footer-description"></p>'
+                    //         } else {
+                    //             element.innerHTML =
+                    //                 `<p class="neurology-6-input-text">У вас есть ${response.data.transcripts} ${transcripts_name}.</p>` +
+                    //                 '<button onclick="get_full_information()" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Посмотреть полную версию</p></button>' +
+                    //                 '<p class="welcome-footer-description"></p>'
+                    //         }
+                    //     } else {
+                    //         const element = document.querySelector(".welcome-hero");
+                    //         if (payment) {
+                    //             element.innerHTML = '<a href="/give_gift_page" class="neurology-1-start-button name"><p class="neurology-1-start-button-text name">Подарить разбор</p></a>' +
+                    //                 '<p class="welcome-footer-description"></p>'
+                    //         } else {
+                    //             element.innerHTML =
+                    //                 '<p class="neurology-6-input-text">Чтобы получить подробную информацию о своей Матрице Судьбы, пожалуйста, приобретите полную версию.</p>' +
+                    //                 '<button onclick="buy_full_information()" class="neurology-1-start-button name">' +
+                    //                 '<p class="neurology-1-start-button-text name">Оплатить полную версию</p>' +
+                    //                 '</button>' +
+                    //                 '<p class="welcome-footer-description"></p>';
+                    //         }
+                    //     }
+                    // }
                 }
             } catch (error) {
                 console.log(error);
@@ -138,7 +144,7 @@
             await axios.post("/check_pay", {key}).then(response => {
                 if (response.status === 200) {
                     if (response.data.status === "succeeded") {
-                        startApp();
+                        window.location.href = "/ready_page";
                     } else {
                         setTimeout(() => check_pay(key), 2000);
                     }

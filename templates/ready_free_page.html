@@ -1,0 +1,35 @@
+{% extends "index.html" %}
+{% block body %}
+{{ super() }}
+<section class="welcome-section">
+    <div class="container name-container">
+        <img src="{{ url_for('static', path='images/f2.png') }}" alt="" class="circle-moon-img">
+        <div class="welcome-background-angles-img">
+            <img src="{{ url_for('static', path='images/background_angles_1.png') }}" alt=""
+                 class="welcome-background-angles img-2">
+            <img src="{{ url_for('static', path='images/background_angles_2.png') }}" alt=""
+                 class="welcome-background-angles img-1">
+            <img src="{{ url_for('static', path='images/background_angles_3.png') }}" alt=""
+                 class="welcome-background-angles img-3">
+            <img src="{{ url_for('static', path='images/background_angles_4.png') }}" alt=""
+                 class="welcome-background-angles img-4">
+        </div>
+        <div onclick=hide_keyboard() class="welcome-logotype">
+            <a class="logo-link" href="/">
+                <img src="{{ url_for('static', path='images/Stars.svg')}}" alt="logo" class="welcome-page-logo">
+                <h2 class="name-page-description">Спасибо за<br/>ваше доверие!</h2>
+                <p class="neurology-7-input-text ready">Готовы узнать что-то новое о себе?</p>
+                <p class="neurology-7-input-text">Забирайте ваш бесплатный нумерологический разбор!</p>
+            </a>
+        </div>
+        <div class="welcome-hero ready">
+            <a href="/demo_result_page" class="neurology-1-start-button name">
+                <p class="neurology-1-start-button-text name">Получить разбор</p>
+            </a>
+            <p class="welcome-footer-description">*Бесплатно</p>
+        </div>
+    </div>
+    <script>
+    </script>
+</section>
+{% endblock %}
