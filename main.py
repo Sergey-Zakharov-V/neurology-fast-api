@@ -255,7 +255,9 @@ async def name_page(request: Request, user: UserFullSchema):
                                 [
                                     {
                                         "text": "Подарить расчёт",
-                                        "url": "https://neurology-bot.digitalppl.com/give_gift_page"
+                                        "web_app": {
+                                            "url": "https://neurology-bot.digitalppl.com/give_gift_page"
+                                        }
                                     }
                                 ]
                             ]
