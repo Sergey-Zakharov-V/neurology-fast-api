@@ -231,8 +231,8 @@ async def name_page(request: Request, user: UserFullSchema):
             if result.transcripts > 0:
                 await UserService.update(username=user.username, value=-1)
                 text = await calculation(day=user.day, month=user.month, year=user.year,
-                                           name=user.name,
-                                           gender=user.gender)
+                                         name=user.name,
+                                         gender=user.gender)
                 endpoint = "https://api.telegram.org/bot6778034404:AAFSfCOqtCnEHQq8zU_DEOWw3FECd0xOYfc/sendMessage"
                 async with aiohttp.ClientSession() as session:
                     text_for_tg = text
@@ -244,7 +244,26 @@ async def name_page(request: Request, user: UserFullSchema):
                         "text": "✨ Ваш разбор ✨\n" + str(text_for_tg),
                         "parse_mode": "HTML",
                     }
+                    data2 = {
+                        "chat_id": result.user_id,
+                        "text": """Подарите  ключ к пониманию себя с Нейрологией.
+                        Нажмите 'Подарить расчёт', чтобы открыть вашим близким дверь в мир самопознания
+                        и гармонии.Подарите уникальный опыт, который останется с ними на всю жизнь.""",
+                        "parse_mode": "HTML",
+                        "reply_markup": {
+                            "inline_keyboard": [
+                                [
+                                    {
+                                        "text": "Подарить расчёт",
+                                        "url": "https://neurology-bot.digitalppl.com/give_gift_page"
+                                    }
+                                ]
+                            ]
+                        }
+                    }
                     async with session.post(endpoint, json=data) as response:
+                        pass
+                    async with session.post(endpoint, json=data2) as response:
                         pass
                 return status.HTTP_200_OK
             else:
