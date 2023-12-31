@@ -144,6 +144,7 @@
             await axios.post("/check_pay", {key}).then(response => {
                 if (response.status === 200) {
                     if (response.data.status === "succeeded") {
+                        get_full_information()
                         window.location.href = "/ready_page";
                     } else {
                         setTimeout(() => check_pay(key), 2000);
@@ -168,21 +169,6 @@
 
                     try {
                         const response = await axios.post("/get_full_result", data);
-
-                        if (response.status === 200 && response.data.name_description) {
-                            const name_description_element = document.querySelector(".neurology-5-result-container");
-                            if (name_description_element) {
-                                name_description_element.innerHTML = response.data.name_description;
-                                await startApp(true);
-                            }
-                        } else {
-                            const error_element = document.querySelector(".welcome-footer-description");
-                            if (error_element) {
-                                error_element.style.color = "red";
-                                error_element.style.fontSize = "18px";
-                                error_element.innerText = "У вас нет разборов";
-                            }
-                        }
                     } catch (error) {
                         console.error(error);
                     }
